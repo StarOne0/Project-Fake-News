@@ -27,15 +27,16 @@
         body {
             font-family: 'Quicksand', sans-serif;
             line-height: 1.6;
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, #f5f9fa, #e6f0f5, #f5f9fa);
+            background-size: 200% 200%;
+            animation: backgroundGradient 15s ease infinite;
             color: var(--text-color);
-            animation: backgroundFade 15s infinite;
         }
         
-        @keyframes backgroundFade {
-            0% { background-color: var(--bg-color); }
-            50% { background-color: #e6f0f5; }
-            100% { background-color: var(--bg-color); }
+        @keyframes backgroundGradient {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         
         h1, h2, h3, .logo {
@@ -50,14 +51,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: top 0.3s ease;
-            animation: headerGradient 10s infinite;
-        }
-        
-        @keyframes headerGradient {
-            0% { background: var(--primary-color); }
-            50% { background: linear-gradient(90deg, #005e7c, #003d52); }
-            100% { background: var(--primary-color); }
+            transition: top 0.3s ease-in-out;
         }
         
         .header-content {
@@ -384,24 +378,69 @@
             transform: scale(1.1);
         }
         
-        /* Styles pour l'encadré d'abonnement - forme originale */
+        /* Styles pour l'encadré d'abonnement avec visuels attractifs */
         .subscription-box {
             background-color: #f0f8ff;
             border: 1px solid #c3e0ea;
             padding: 20px;
             margin-top: 20px;
             border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            animation: boxGlow 4s infinite;
+        }
+        
+        @keyframes boxGlow {
+            0% { box-shadow: 0 0 0 rgba(243, 156, 18, 0.5); }
+            50% { box-shadow: 0 0 15px rgba(243, 156, 18, 0.8); }
+            100% { box-shadow: 0 0 0 rgba(243, 156, 18, 0.5); }
+        }
+        
+        .subscription-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(243, 156, 18, 0.2) 0%, transparent 70%);
+            animation: radialPulse 3s infinite;
+            z-index: 0;
+        }
+        
+        @keyframes radialPulse {
+            0% { transform: scale(0); }
+            50% { transform: scale(1); }
+            100% { transform: scale(0); }
         }
         
         .subscription-box h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            animation: textBounce 2s infinite;
+        }
+        
+        @keyframes textBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .subscription-box p {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
         }
         
         .subscription-box ul {
             list-style-type: disc;
             margin-left: 20px;
             margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
         }
         
         .subscribe-button {
@@ -412,11 +451,21 @@
             text-decoration: none;
             border-radius: 4px;
             font-weight: 600;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+            animation: buttonPulse 3s infinite;
+        }
+        
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         .subscribe-button:hover {
             background-color: #e67e22;
+            transform: scale(1.1);
         }
         
         @media (max-width: 992px) {
@@ -564,19 +613,20 @@
         </div>
     </footer>
     
-    <!-- Script pour gérer le défilement de l'en-tête -->
+    <!-- Script pour gérer le défilement de l'en-tête (corrigé) -->
     <script>
         let lastScrollTop = 0;
         const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
+
+        window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop) {
-                header.style.top = '-100px';
+            if (scrollTop > lastScrollTop && scrollTop > 100) { // Ajout d'une condition pour éviter les bugs au début
+                header.style.top = '-80px'; // Hauteur réduite pour une transition plus fluide
             } else {
                 header.style.top = '0';
             }
-            lastScrollTop = scrollTop;
-        });
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Réinitialisation à 0 si on remonte trop haut
+        }, { passive: true }); // Amélioration des performances
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'920548b14e7c1375',t:'MTc0MTk3MTE3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
