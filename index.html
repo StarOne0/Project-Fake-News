@@ -139,7 +139,6 @@
         
         .main-article-content {
             display: flex;
-            flex-direction: column;
             gap: 20px;
             align-items: flex-start;
         }
@@ -154,6 +153,8 @@
         
         .main-article-text {
             flex: 1;
+            position: relative;
+            overflow: hidden;
         }
         
         .main-article-text p {
@@ -297,13 +298,15 @@
         
         /* Styles pour l'encadré d'abonnement - amélioré */
         .subscription-box {
-            background: linear-gradient(135deg, #f0f8ff, #e0f0fa); /* Dégradé subtil */
+            background: linear-gradient(135deg, #f0f8ff, #e0f0fa);
             border: 2px solid var(--accent-color);
             padding: 20px;
-            border-radius: 10px; /* Coins plus arrondis */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre douce */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
             animation: fadeIn 1s ease-in-out;
+            width: 40%; /* Même largeur que l'image */
+            margin-top: 10px; /* Espacement avec l'image */
         }
         
         @keyframes fadeIn {
@@ -339,7 +342,7 @@
         }
         
         .subscription-box li::before {
-            content: '✔'; /* Symbole de coche */
+            content: '✔';
             color: var(--accent-color);
             position: absolute;
             left: 0;
@@ -347,18 +350,53 @@
         
         .subscribe-button {
             display: inline-block;
-            background: linear-gradient(90deg, #f39c12, #e67e22); /* Dégradé pour le bouton */
+            background: linear-gradient(90deg, #f39c12, #e67e22);
             color: white;
             padding: 12px 25px;
             text-decoration: none;
-            border-radius: 25px; /* Bouton arrondi */
+            border-radius: 25px;
             font-weight: 700;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .subscribe-button:hover {
-            transform: scale(1.05); /* Effet de zoom */
+            transform: scale(1.05);
             box-shadow: 0 5px 15px rgba(243, 156, 18, 0.5);
+        }
+        
+        /* Styles pour le texte coupé avec animation */
+        .text-container {
+            max-height: 200px; /* Ajusté pour correspondre à la hauteur approximative de l'encadré */
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .text-container p {
+            margin: 0;
+        }
+        
+        .text-container::after {
+            content: '...';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--bg-color); /* Fond pour éviter que le texte ne déborde sous les points */
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        
+        .text-container:hover::after {
+            display: none; /* Masquer les points au survol */
+        }
+        
+        .text-container:hover .full-text {
+            max-height: none; /* Afficher tout le texte au survol */
+            transition: max-height 0.5s ease-in-out;
+        }
+        
+        .full-text {
+            max-height: 200px; /* Hauteur initiale coupée */
+            overflow: hidden;
         }
         
         @media (max-width: 992px) {
@@ -396,6 +434,14 @@
             .footer-section {
                 margin-bottom: 2rem;
             }
+            
+            .subscription-box {
+                width: 100%; /* Pleine largeur sur mobile */
+            }
+            
+            .text-container {
+                max-height: 150px; /* Ajustement pour mobile */
+            }
         }
     </style>
 </head>
@@ -424,7 +470,7 @@
             <div class="main-article-content">
                 <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Photo%20du%20G%C3%A9n%C3%A9ral.jpeg" alt="Portrait du général russe">
                 
-                <!-- Encadré d'abonnement déplacé ici -->
+                <!-- Encadré d'abonnement en bas de l'image -->
                 <div class="subscription-box">
                     <h3>Abonnez-vous au Canard Déchaîné</h3>
                     <p>Pour seulement 3,99€ par mois, profitez de nombreux avantages :</p>
@@ -438,19 +484,17 @@
                 </div>
                 
                 <div class="main-article-text">
-                    <p><strong>MOSCOU</strong> — Dans un entretien exclusif accordé à notre journal, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité. Une première historique pour les forces armées russes.</p>
-                    
-                    <p>"J'ai décidé de parler maintenant parce que je crois qu'il est temps que la société russe évolue," nous confie le général de 54 ans. "J'ai servi mon pays avec honneur pendant plus de 30 ans. Mon orientation sexuelle n'a jamais affecté ma capacité à commander ou à prendre des décisions stratégiques."</p>
-                    
-                    <p>Cette annonce retentissante intervient dans un contexte où la Russie maintient une législation stricte contre la "propagande homosexuelle", particulièrement dans les institutions militaires et éducatives.</p>
-                    
-                    <p>"Je sais que je risque ma carrière et peut-être ma sécurité," poursuit-il, "mais je ne peux plus vivre dans le mensonge. D'autres militaires comme moi souffrent en silence."</p>
-                    
-                    <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
-                    
-                    <p>Des militants pour les droits LGBT+ ont salué ce geste comme "extraordinairement courageux" mais s'inquiètent des conséquences possibles pour le général Petrov.</p>
-                    
-                    <p>Le porte-parole du Kremlin, Dmitri Peskov, n'a pas souhaité commenter cette information, la qualifiant de "rumeur non vérifiée".</p>
+                    <div class="text-container">
+                        <div class="full-text">
+                            <p><strong>MOSCOU</strong> — Dans un entretien exclusif accordé à notre journal, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité. Une première historique pour les forces armées russes.</p>
+                            <p>"J'ai décidé de parler maintenant parce que je crois qu'il est temps que la société russe évolue," nous confie le général de 54 ans. "J'ai servi mon pays avec honneur pendant plus de 30 ans. Mon orientation sexuelle n'a jamais affecté ma capacité à commander ou à prendre des décisions stratégiques."</p>
+                            <p>Cette annonce retentissante intervient dans un contexte où la Russie maintient une législation stricte contre la "propagande homosexuelle", particulièrement dans les institutions militaires et éducatives.</p>
+                            <p>"Je sais que je risque ma carrière et peut-être ma sécurité," poursuit-il, "mais je ne peux plus vivre dans le mensonge. D'autres militaires comme moi souffrent en silence."</p>
+                            <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
+                            <p>Des militants pour les droits LGBT+ ont salué ce geste comme "extraordinairement courageux" mais s'inquiètent des conséquences possibles pour le général Petrov.</p>
+                            <p>Le porte-parole du Kremlin, Dmitri Peskov, n'a pas souhaité commenter cette information, la qualifiant de "rumeur non vérifiée".</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </article>
