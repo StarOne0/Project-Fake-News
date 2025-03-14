@@ -3,22 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Journal - L'actualité en continu</title>
+    <title>Le Canard Déchaîné - L'actualité en continu</title>
     <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
+        :root {
+            --primary-color: #005e7c;
+            --accent-color: #f39c12;
+            --text-color: #333;
+            --light-text: #666;
+            --bg-color: #f5f9fa;
+            --border-color: #c3e0ea;
+            --section-padding: 2rem;
+            --category-color: #e67e22;
+        }
+        
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        h1, h2, h3, .logo {
+            font-family: 'Playfair Display', serif;
         }
         
         header {
-            background-color: #1a1a1a;
+            background-color: var(--primary-color);
             color: white;
             padding: 1rem 0;
-            border-bottom: 2px solid #c00;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .header-content {
@@ -31,15 +55,25 @@
         }
         
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
+            font-size: 1.75rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .logo::before {
+            content: '🦆';
+            font-size: 2rem;
         }
         
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 30px;
         }
         
         .nav-links a {
@@ -47,46 +81,64 @@
             text-decoration: none;
             font-size: 0.9rem;
             text-transform: uppercase;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
         }
         
         .nav-links a:hover {
-            text-decoration: underline;
+            opacity: 0.8;
         }
         
         .container {
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem 0;
+            padding: var(--section-padding) 0;
         }
         
         .date {
             font-style: italic;
-            color: #666;
-            margin-bottom: 1rem;
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
         }
         
         .main-article {
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 2rem;
-            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .main-article::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-color), var(--primary-color));
+            border-radius: 2px;
         }
         
         .main-article h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
             line-height: 1.2;
+            font-weight: 700;
         }
         
         .main-article .subtitle {
             font-size: 1.2rem;
-            color: #666;
+            color: var(--light-text);
             margin-bottom: 1.5rem;
+            font-weight: 400;
+            line-height: 1.4;
         }
         
         .main-article-content {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             align-items: flex-start;
         }
         
@@ -94,10 +146,36 @@
             width: 40%;
             height: auto;
             object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         
         .main-article-text {
             flex: 1;
+        }
+        
+        .main-article-text p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .main-article-text p:first-of-type {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .category {
+            display: inline-block;
+            font-size: 0.75rem;
+            color: white;
+            background-color: var(--category-color);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5px;
+            padding: 3px 8px;
+            border-radius: 4px;
         }
         
         .secondary-articles {
@@ -107,35 +185,48 @@
         }
         
         .secondary-article {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 1rem;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fff;
+            border-top: 3px solid var(--accent-color);
+        }
+        
+        .secondary-article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
         }
         
         .secondary-article h2 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+            padding: 0 1rem;
+            font-weight: 600;
+        }
+        
+        .secondary-article .category {
+            margin: 1rem 1rem 0.5rem;
+        }
+        
+        .secondary-article p {
+            padding: 0 1rem 1.5rem;
+            font-size: 0.95rem;
+            color: var(--light-text);
         }
         
         .secondary-article img {
             width: 100%;
-            height: 150px;
+            height: 180px;
             object-fit: cover;
-            margin-bottom: 0.5rem;
-        }
-        
-        .category {
-            font-size: 0.8rem;
-            color: #c00;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
         }
         
         footer {
-            background-color: #1a1a1a;
+            background-color: var(--primary-color);
             color: white;
-            padding: 2rem 0;
-            margin-top: 2rem;
+            padding: var(--section-padding) 0;
+            margin-top: 3rem;
+            border-top: 4px solid var(--accent-color);
         }
         
         .footer-content {
@@ -154,11 +245,13 @@
             margin-top: 0;
             border-bottom: 1px solid #444;
             padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         
         .footer-section ul {
             list-style: none;
-            padding: 0;
         }
         
         .footer-section li {
@@ -166,12 +259,20 @@
         }
         
         .footer-section a {
-            color: #ccc;
+            color: #ddd;
             text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
         }
         
         .footer-section a:hover {
-            text-decoration: underline;
+            color: white;
+        }
+        
+        @media (max-width: 992px) {
+            .secondary-articles {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         @media (max-width: 768px) {
@@ -181,11 +282,19 @@
             
             .main-article-content img {
                 width: 100%;
-                margin-bottom: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .main-article h1 {
+                font-size: 2rem;
             }
             
             .secondary-articles {
                 grid-template-columns: 1fr;
+            }
+            
+            .secondary-article img {
+                height: 200px;
             }
             
             .footer-content {
@@ -201,7 +310,7 @@
 <body>
     <header>
         <div class="header-content">
-            <div class="logo">Le Journal</div>
+            <div class="logo">Le Canard Déchaîné</div>
             <div class="nav-links">
                 <a href="#">Politique</a>
                 <a href="#">International</a>
@@ -221,8 +330,7 @@
             <div class="subtitle">Dans un pays où l'homosexualité reste tabou, un haut gradé de l'armée russe fait une annonce sans précédent</div>
             
             <div class="main-article-content">
-               <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Photo%20du%20G%C3%A9n%C3%A9ral.jpeg" alt="Portrait du général russe" style="width: 40%; height: auto; object-fit: cover;">
-
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Photo%20du%20G%C3%A9n%C3%A9ral.jpeg" alt="Portrait du général russe">
                 <div class="main-article-text">
                     <p><strong>MOSCOU</strong> — Dans un geste sans précédent pour les forces armées russes, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité lors d'une interview accordée à un média indépendant en ligne.</p>
                     
@@ -243,22 +351,22 @@
         
         <div class="secondary-articles">
             <article class="secondary-article">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Inflation.jpg" alt="Graphique sur l'inflation">
                 <div class="category">Économie</div>
-                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Inflation.jpg" alt="Graphique sur l'inflation" style="max-width: 100%; height: auto;">
                 <h2>Le FMI alerte sur les risques d'une inflation persistante</h2>
                 <p>Dans son dernier rapport, le Fonds Monétaire International met en garde contre les effets à long terme d'une inflation structurelle qui pourrait affecter la reprise économique mondiale.</p>
             </article>
             
             <article class="secondary-article">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Glacier.jpg" alt="Glacier en train de fondre">
                 <div class="category">Environnement</div>
-                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Glacier.jpg" alt="Glacier en train de fondre" style="max-width: 100%; height: auto; object-fit: contain;">
                 <h2>Le réchauffement climatique atteint un nouveau seuil critique</h2>
                 <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le GIEC.</p>
             </article>
             
             <article class="secondary-article">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/robot%20%26%20humain.jpg" alt="Robot et humain travaillant ensemble">
                 <div class="category">Technologie</div>
-                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/robot%20%26%20humain.jpg" alt="Robot et humain travaillant ensemble" style="max-width: 100%; height: auto; object-fit: contain;">
                 <h2>L'intelligence artificielle bouleverse le marché du travail</h2>
                 <p>Une récente étude révèle que l'adoption massive de l'IA dans les entreprises transforme radicalement certains métiers, créant de nouvelles opportunités mais aussi des défis d'adaptation.</p>
             </article>
@@ -268,7 +376,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Le Journal</h3>
+                <h3>Le Canard Déchaîné</h3>
                 <ul>
                     <li><a href="#">À propos</a></li>
                     <li><a href="#">Contact</a></li>
