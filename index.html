@@ -178,6 +178,37 @@
             border-radius: 4px;
         }
         
+        /* Nouveau badge Interview Exclusive */
+        .exclusive-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4e50, #f9d423);
+            color: white;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 25px;
+            margin-left: 15px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 3px 10px rgba(249, 212, 35, 0.4);
+            transform: rotate(-5deg);
+            position: relative;
+            top: -5px;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(249, 212, 35, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(249, 212, 35, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(249, 212, 35, 0);
+            }
+        }
+        
         .secondary-articles {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -326,23 +357,23 @@
         
         <article class="main-article">
             <div class="category">International</div>
-            <h1>Un général russe fait son coming out</h1>
-            <div class="subtitle">Dans un pays où l'homosexualité reste tabou, un haut gradé de l'armée russe fait une annonce sans précédent</div>
+            <h1>Un général russe fait son coming out <span class="exclusive-badge">Interview Exclusive</span></h1>
+            <div class="subtitle">Dans un pays où l'homosexualité reste tabou, un haut gradé de l'armée russe se confie en exclusivité à notre journal</div>
             
             <div class="main-article-content">
                 <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Photo%20du%20G%C3%A9n%C3%A9ral.jpeg" alt="Portrait du général russe">
                 <div class="main-article-text">
-                    <p><strong>MOSCOU</strong> — Dans un geste sans précédent pour les forces armées russes, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité lors d'une interview accordée à un média indépendant en ligne.</p>
+                    <p><strong>MOSCOU</strong> — Dans un entretien exclusif accordé à notre journal, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité. Une première historique pour les forces armées russes.</p>
                     
-                    <p>Cette annonce intervient dans un contexte où la Russie maintient une législation stricte contre la "propagande homosexuelle", particulièrement dans les institutions militaires et éducatives.</p>
+                    <p>"J'ai décidé de parler maintenant parce que je crois qu'il est temps que la société russe évolue," nous confie le général de 54 ans. "J'ai servi mon pays avec honneur pendant plus de 30 ans. Mon orientation sexuelle n'a jamais affecté ma capacité à commander ou à prendre des décisions stratégiques."</p>
                     
-                    <p>"J'ai servi mon pays avec honneur pendant plus de 30 ans. Mon orientation sexuelle n'a jamais affecté ma capacité à commander ou à prendre des décisions stratégiques", aurait déclaré le général selon des sources proches du dossier.</p>
+                    <p>Cette annonce retentissante intervient dans un contexte où la Russie maintient une législation stricte contre la "propagande homosexuelle", particulièrement dans les institutions militaires et éducatives.</p>
+                    
+                    <p>"Je sais que je risque ma carrière et peut-être ma sécurité," poursuit-il, "mais je ne peux plus vivre dans le mensonge. D'autres militaires comme moi souffrent en silence."</p>
                     
                     <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
                     
-                    <p>Cette annonce intervient également dans un contexte de tensions internationales accrues et de débats internes sur les valeurs traditionnelles que le pouvoir russe met régulièrement en avant.</p>
-                    
-                    <p>Des militants pour les droits LGBT+ ont salué ce geste comme "courageux" mais s'inquiètent des conséquences possibles pour le général Petrov.</p>
+                    <p>Des militants pour les droits LGBT+ ont salué ce geste comme "extraordinairement courageux" mais s'inquiètent des conséquences possibles pour le général Petrov.</p>
                     
                     <p>Le porte-parole du Kremlin, Dmitri Peskov, n'a pas souhaité commenter cette information, la qualifiant de "rumeur non vérifiée".</p>
                 </div>
@@ -361,7 +392,7 @@
                 <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Glacier.jpg" alt="Glacier en train de fondre">
                 <div class="category">Environnement</div>
                 <h2>Le réchauffement climatique atteint un nouveau seuil critique</h2>
-                <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le GIEC.</p>
+                <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le
             </article>
             
             <article class="secondary-article">
