@@ -44,6 +44,13 @@
             top: 0;
             z-index: 100;
             transition: top 0.3s ease;
+            animation: headerGradient 10s infinite;
+        }
+        
+        @keyframes headerGradient {
+            0% { background: var(--primary-color); }
+            50% { background: linear-gradient(90deg, #005e7c, #003d52); }
+            100% { background: var(--primary-color); }
         }
         
         .header-content {
@@ -70,6 +77,12 @@
         .logo::before {
             content: '🦆';
             font-size: 2rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
         
         .nav-links {
@@ -83,11 +96,12 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             font-weight: 500;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.2s ease, box-shadow 0.3s ease;
         }
         
         .nav-links a:hover {
             opacity: 0.8;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
         
         .container {
@@ -149,12 +163,16 @@
             object-fit: cover;
             border-radius: 4px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .main-article-content img:hover {
+            transform: scale(1.05);
         }
         
         .main-article-text {
             flex: 1;
             position: relative;
-            overflow: hidden;
         }
         
         .main-article-text p {
@@ -179,6 +197,13 @@
             letter-spacing: 0.5px;
             padding: 3px 8px;
             border-radius: 4px;
+            animation: categoryPulse 3s infinite;
+        }
+        
+        @keyframes categoryPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         .exclusive-badge {
@@ -246,6 +271,11 @@
             width: 100%;
             height: 180px;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .secondary-article img:hover {
+            transform: scale(1.05);
         }
         
         footer {
@@ -254,6 +284,13 @@
             padding: var(--section-padding) 0;
             margin-top: 3rem;
             border-top: 4px solid var(--accent-color);
+            animation: footerFade 5s infinite;
+        }
+        
+        @keyframes footerFade {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
         }
         
         .footer-content {
@@ -289,24 +326,25 @@
             color: #ddd;
             text-decoration: none;
             font-size: 0.9rem;
-            transition: color 0.2s ease;
+            transition: color 0.2s ease, transform 0.3s ease;
         }
         
         .footer-section a:hover {
             color: white;
+            transform: scale(1.1);
         }
         
-        /* Styles pour l'encadré d'abonnement - amélioré */
+        /* Styles pour l'encadré d'abonnement - réduit et amélioré */
         .subscription-box {
             background: linear-gradient(135deg, #f0f8ff, #e0f0fa);
             border: 2px solid var(--accent-color);
-            padding: 20px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             text-align: center;
-            animation: fadeIn 1s ease-in-out;
-            width: 40%; /* Même largeur que l'image */
-            margin-top: 10px; /* Espacement avec l'image */
+            animation: fadeIn 1s ease-in-out, float 3s infinite;
+            width: 25%; /* Réduit à 25% pour être plus compact */
+            margin-top: 10px;
         }
         
         @keyframes fadeIn {
@@ -314,31 +352,44 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        
         .subscription-box h3 {
-            font-size: 1.6rem;
-            margin-bottom: 15px;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
             color: var(--primary-color);
             text-transform: uppercase;
             letter-spacing: 1px;
+            animation: pulseText 2s infinite;
+        }
+        
+        @keyframes pulseText {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
         
         .subscription-box p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-color);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .subscription-box ul {
             list-style-type: none;
             margin-left: 0;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .subscription-box li {
-            font-size: 1rem;
-            margin-bottom: 10px;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
             position: relative;
-            padding-left: 20px;
+            padding-left: 18px;
         }
         
         .subscription-box li::before {
@@ -352,51 +403,23 @@
             display: inline-block;
             background: linear-gradient(90deg, #f39c12, #e67e22);
             color: white;
-            padding: 12px 25px;
+            padding: 10px 20px;
             text-decoration: none;
             border-radius: 25px;
             font-weight: 700;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: buttonGlow 4s infinite;
+        }
+        
+        @keyframes buttonGlow {
+            0% { box-shadow: 0 0 0 rgba(243, 156, 18, 0.5); }
+            50% { box-shadow: 0 0 10px rgba(243, 156, 18, 0.8); }
+            100% { box-shadow: 0 0 0 rgba(243, 156, 18, 0.5); }
         }
         
         .subscribe-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.5);
-        }
-        
-        /* Styles pour le texte coupé avec animation */
-        .text-container {
-            max-height: 200px; /* Ajusté pour correspondre à la hauteur approximative de l'encadré */
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .text-container p {
-            margin: 0;
-        }
-        
-        .text-container::after {
-            content: '...';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: var(--bg-color); /* Fond pour éviter que le texte ne déborde sous les points */
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-        
-        .text-container:hover::after {
-            display: none; /* Masquer les points au survol */
-        }
-        
-        .text-container:hover .full-text {
-            max-height: none; /* Afficher tout le texte au survol */
-            transition: max-height 0.5s ease-in-out;
-        }
-        
-        .full-text {
-            max-height: 200px; /* Hauteur initiale coupée */
-            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.8);
         }
         
         @media (max-width: 992px) {
@@ -438,10 +461,6 @@
             .subscription-box {
                 width: 100%; /* Pleine largeur sur mobile */
             }
-            
-            .text-container {
-                max-height: 150px; /* Ajustement pour mobile */
-            }
         }
     </style>
 </head>
@@ -470,31 +489,30 @@
             <div class="main-article-content">
                 <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Photo%20du%20G%C3%A9n%C3%A9ral.jpeg" alt="Portrait du général russe">
                 
-                <!-- Encadré d'abonnement en bas de l'image -->
-                <div class="subscription-box">
-                    <h3>Abonnez-vous au Canard Déchaîné</h3>
-                    <p>Pour seulement 3,99€ par mois, profitez de nombreux avantages :</p>
-                    <ul>
-                        <li>Lecture illimitée de tous les articles</li>
-                        <li>Accès aux archives</li>
-                        <li>Contenu exclusif réservé aux abonnés</li>
-                        <li>Participation aux événements organisés par le journal</li>
-                    </ul>
-                    <a href="#" class="subscribe-button">S'abonner maintenant</a>
-                </div>
-                
                 <div class="main-article-text">
-                    <div class="text-container">
-                        <div class="full-text">
-                            <p><strong>MOSCOU</strong> — Dans un entretien exclusif accordé à notre journal, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité. Une première historique pour les forces armées russes.</p>
-                            <p>"J'ai décidé de parler maintenant parce que je crois qu'il est temps que la société russe évolue," nous confie le général de 54 ans. "J'ai servi mon pays avec honneur pendant plus de 30 ans. Mon orientation sexuelle n'a jamais affecté ma capacité à commander ou à prendre des décisions stratégiques."</p>
-                            <p>Cette annonce retentissante intervient dans un contexte où la Russie maintient une législation stricte contre la "propagande homosexuelle", particulièrement dans les institutions militaires et éducatives.</p>
-                            <p>"Je sais que je risque ma carrière et peut-être ma sécurité," poursuit-il, "mais je ne peux plus vivre dans le mensonge. D'autres militaires comme moi souffrent en silence."</p>
-                            <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
-                            <p>Des militants pour les droits LGBT+ ont salué ce geste comme "extraordinairement courageux" mais s'inquiètent des conséquences possibles pour le général Petrov.</p>
-                            <p>Le porte-parole du Kremlin, Dmitri Peskov, n'a pas souhaité commenter cette information, la qualifiant de "rumeur non vérifiée".</p>
-                        </div>
+                    <p><strong>MOSCOU</strong> — Dans un entretien exclusif accordé à notre journal, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité. Une première historique pour les forces armées russes.</p>
+                    <p>"J'ai décidé de parler maintenant parce que je crois qu'il est temps que la société russe évolue," nous confie le général de 54 ans. "J'ai servi mon pays avec honneur pendant plus de 30 ans. Mon orientation sexuelle n'a jamais affecté ma capacité à commander ou à prendre des décisions stratégiques."</p>
+                    <p>Cette annonce retentissante intervient dans un contexte où la Russie maintient une législation stricte contre la "propagande homosexuelle", particulièrement dans les institutions militaires et éducatives. Le général Petrov a souligné que cette loi, adoptée en 2013, a créé un climat de peur et de répression pour de nombreuses personnes dans son pays.</p>
+                    <p>Avant cette révélation, le général a passé des années à cacher sa véritable identité, vivant dans l'ombre pour protéger sa carrière. "C'était un fardeau quotidien," admet-il. "Mais aujourd'hui, je veux inspirer d'autres à briser ces chaînes invisibles."</p>
+                    <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
+                    <p>Des militants pour les droits LGBT+ ont salué ce geste comme "extraordinairement courageux" mais s'inquiètent des conséquences possibles pour le général Petrov. Ils appellent à une mobilisation internationale pour soutenir sa cause.</p>
+                    
+                    <!-- Encadré apparaissant à la moitié du texte -->
+                    <div class="subscription-box">
+                        <h3>Abonnez-vous au Canard Déchaîné</h3>
+                        <p>Pour seulement 3,99€ par mois, accédez à la suite de cet article et à tout notre contenu exclusif :</p>
+                        <ul>
+                            <li>Lecture illimitée de tous les articles</li>
+                            <li>Accès aux archives</li>
+                            <li>Contenu exclusif réservé aux abonnés</li>
+                            <li>Participation aux événements organisés par le journal</li>
+                        </ul>
+                        <a href="#" class="subscribe-button">S'abonner maintenant</a>
                     </div>
+                    
+                    <p>Si vous êtes abonné, vous pourrez lire la suite de cette interview exclusive où le général Petrov détaille les pressions subies au sein de l'armée et ses espoirs pour un avenir plus inclusif. Il évoque également des anecdotes personnelles sur sa vie militaire, ainsi que les soutiens inattendus qu'il a reçus de certains collègues.</p>
+                    <p>Par ailleurs, des manifestations spontanées ont éclaté dans plusieurs villes russes, notamment à Saint-Pétersbourg, où des citoyens ont brandi des pancartes en soutien au général. Cependant, la police a rapidement dispersé ces rassemblements, renforçant les tensions autour de cette affaire.</p>
+                    <p>Le porte-parole du Kremlin, Dmitri Peskov, n'a pas souhaité commenter cette information, la qualifiant de "rumeur non vérifiée". Pourtant, des sources internes suggèrent que des discussions secrètes ont lieu au plus haut niveau pour gérer cette situation inédite.</p>
                 </div>
             </div>
         </article>
