@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Journal - L'actualité en continu</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1rem 0;
+            border-bottom: 2px solid #c00;
+        }
+        
+        .header-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .date {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .main-article {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .main-article h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+        
+        .main-article .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .main-article-content {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        
+        .main-article-content img {
+            width: 40%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        .main-article-text {
+            flex: 1;
+        }
+        
+        .secondary-articles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .secondary-article {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        
+        .secondary-article h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .secondary-article img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category {
+            font-size: 0.8rem;
+            color: #c00;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex-basis: 30%;
+        }
+        
+        .footer-section h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .main-article-content {
+                flex-direction: column;
+            }
+            
+            .main-article-content img {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .secondary-articles {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-section {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Le Journal</div>
+            <div class="nav-links">
+                <a href="#">Politique</a>
+                <a href="#">International</a>
+                <a href="#">Économie</a>
+                <a href="#">Culture</a>
+                <a href="#">Opinions</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="date">Vendredi 14 mars 2025</div>
+        
+        <article class="main-article">
+            <div class="category">International</div>
+            <h1>Un général russe fait son coming out</h1>
+            <div class="subtitle">Dans un pays où l'homosexualité reste tabou, un haut gradé de l'armée russe fait une annonce sans précédent</div>
+            
+            <div class="main-article-content">
+                <img src="/api/placeholder/600/400" alt="Portrait du général russe" style="width: 40%; height: auto; object-fit: cover;">
+                <div class="main-article-text">
+                    <p><strong>MOSCOU</strong> — Dans un geste sans précédent pour les forces armées russes, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité lors d'une interview accordée à un média indépendant en ligne.</p>
+                    
+                    <p>Cette annonce intervient dans un contexte où la Russie maintient une législation stricte contre la "propagande homosexuelle", particulièrement dans les institutions militaires et éducatives.</p>
+                    
+                    <p>"J'ai servi mon pays avec honneur pendant plus de 30 ans. Mon orientation sexuelle n'a jamais affecté ma capacité à commander ou à prendre des décisions stratégiques", aurait déclaré le général selon des sources proches du dossier.</p>
+                    
+                    <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
+                    
+                    <p>Cette annonce intervient également dans un contexte de tensions internationales accrues et de débats internes sur les valeurs traditionnelles que le pouvoir russe met régulièrement en avant.</p>
+                    
+                    <p>Des militants pour les droits LGBT+ ont salué ce geste comme "courageux" mais s'inquiètent des conséquences possibles pour le général Petrov.</p>
+                    
+                    <p>Le porte-parole du Kremlin, Dmitri Peskov, n'a pas souhaité commenter cette information, la qualifiant de "rumeur non vérifiée".</p>
+                </div>
+            </div>
+        </article>
+        
+        <div class="secondary-articles">
+            <article class="secondary-article">
+                <div class="category">Économie</div>
+                <img src="/api/placeholder/400/200" alt="Graphique économique montrant l'inflation">
+                <h2>Le FMI alerte sur les risques d'une inflation persistante</h2>
+                <p>Dans son dernier rapport, le Fonds Monétaire International met en garde contre les effets à long terme d'une inflation structurelle qui pourrait affecter la reprise économique mondiale.</p>
+            </article>
+            
+            <article class="secondary-article">
+                <div class="category">Environnement</div>
+                <img src="/api/placeholder/400/200" alt="Glacier en train de fondre">
+                <h2>Le réchauffement climatique atteint un nouveau seuil critique</h2>
+                <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le GIEC.</p>
+            </article>
+            
+            <article class="secondary-article">
+                <div class="category">Technologie</div>
+                <img src="/api/placeholder/400/200" alt="Robot et humain travaillant ensemble">
+                <h2>L'intelligence artificielle bouleverse le marché du travail</h2>
+                <p>Une récente étude révèle que l'adoption massive de l'IA dans les entreprises transforme radicalement certains métiers, créant de nouvelles opportunités mais aussi des défis d'adaptation.</p>
+            </article>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Le Journal</h3>
+                <ul>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Abonnements</a></li>
+                    <li><a href="#">Services</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Rubriques</h3>
+                <ul>
+                    <li><a href="#">Politique</a></li>
+                    <li><a href="#">International</a></li>
+                    <li><a href="#">Économie</a></li>
+                    <li><a href="#">Culture</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Suivez-nous</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
