@@ -31,12 +31,45 @@
             background-size: 200% 200%;
             animation: backgroundGradient 15s ease infinite;
             color: var(--text-color);
+            position: relative;
+            overflow-x: hidden; /* Éviter les débordements horizontaux */
         }
         
         @keyframes backgroundGradient {
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 100%; }
             100% { background-position: 0% 0%; }
+        }
+        
+        /* Arc-en-ciel en arrière-plan */
+        .rainbow {
+            position: fixed;
+            top: 0;
+            left: -100%; /* Départ hors de l'écran */
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.3),
+                rgba(255, 165, 0, 0.3),
+                rgba(255, 255, 0, 0.3),
+                rgba(0, 128, 0, 0.3),
+                rgba(0, 0, 255, 0.3),
+                rgba(75, 0, 130, 0.3),
+                rgba(238, 130, 238, 0.3)
+            );
+            filter: blur(50px); /* Effet flou pour un look plus doux */
+            opacity: 0.5;
+            z-index: -1; /* Derrière tous les autres éléments */
+            animation: rainbowMove 15s infinite ease-in-out; /* Défilement toutes les 15 secondes */
+        }
+        
+        @keyframes rainbowMove {
+            0% { transform: translateX(-100%); opacity: 0; }
+            20% { opacity: 0.5; } /* Apparition progressive */
+            50% { transform: translateX(50%); opacity: 0.5; } /* Passage au centre */
+            80% { opacity: 0.5; } /* Disparition progressive */
+            100% { transform: translateX(200%); opacity: 0; } /* Sortie de l'écran */
         }
         
         h1, h2, h3, .logo {
@@ -126,6 +159,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: var(--section-padding) 0;
+            position: relative;
+            z-index: 1; /* Assurer que le contenu reste au-dessus de l'arc-en-ciel */
         }
         
         .date {
@@ -329,6 +364,8 @@
             margin-top: 3rem;
             border-top: 4px solid var(--accent-color);
             animation: footerFade 5s infinite;
+            position: relative;
+            z-index: 1; /* Assurer que le footer est au-dessus de l'arc-en-ciel */
         }
         
         @keyframes footerFade {
@@ -507,6 +544,9 @@
     </style>
 </head>
 <body>
+    <!-- Arc-en-ciel animé -->
+    <div class="rainbow"></div>
+    
     <header>
         <div class="header-content">
             <div class="logo">Le Canard Déchaîné</div>
@@ -613,20 +653,20 @@
         </div>
     </footer>
     
-    <!-- Script pour gérer le défilement de l'en-tête (corrigé) -->
+    <!-- Script pour gérer le défilement de l'en-tête -->
     <script>
         let lastScrollTop = 0;
         const header = document.querySelector('header');
 
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 100) { // Ajout d'une condition pour éviter les bugs au début
-                header.style.top = '-80px'; // Hauteur réduite pour une transition plus fluide
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.top = '-80px';
             } else {
                 header.style.top = '0';
             }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Réinitialisation à 0 si on remonte trop haut
-        }, { passive: true }); // Amélioration des performances
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, { passive: true });
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'920548b14e7c1375',t:'MTc0MTk3MTE3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
