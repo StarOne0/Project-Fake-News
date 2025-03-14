@@ -43,7 +43,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: top 0.3s ease; /* Transition fluide pour le défilement */
+            transition: top 0.3s ease;
         }
         
         .header-content {
@@ -139,7 +139,8 @@
         
         .main-article-content {
             display: flex;
-            gap: 40px;
+            flex-direction: column;
+            gap: 20px;
             align-items: flex-start;
         }
         
@@ -294,50 +295,70 @@
             color: white;
         }
         
-        /* Styles pour les publicités latérales */
-        .ad-left, .ad-right {
-            position: fixed;
-            top: 100px; /* Laisse de l'espace sous l'en-tête */
-            width: 160px;
-            z-index: 10;
-        }
-        
-        .ad-left {
-            left: 0;
-        }
-        
-        .ad-right {
-            right: 0;
-        }
-        
-        /* Styles pour l'encadré d'abonnement */
+        /* Styles pour l'encadré d'abonnement - amélioré */
         .subscription-box {
-            background-color: #f0f8ff;
-            border: 1px solid #c3e0ea;
+            background: linear-gradient(135deg, #f0f8ff, #e0f0fa); /* Dégradé subtil */
+            border: 2px solid var(--accent-color);
             padding: 20px;
-            margin-top: 20px;
-            border-radius: 4px;
+            border-radius: 10px; /* Coins plus arrondis */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre douce */
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         
         .subscription-box h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .subscription-box p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
         }
         
         .subscription-box ul {
-            list-style-type: disc;
-            margin-left: 20px;
-            margin-bottom: 15px;
+            list-style-type: none;
+            margin-left: 0;
+            margin-bottom: 20px;
+        }
+        
+        .subscription-box li {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .subscription-box li::before {
+            content: '✔'; /* Symbole de coche */
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
         }
         
         .subscribe-button {
             display: inline-block;
-            background-color: var(--accent-color);
+            background: linear-gradient(90deg, #f39c12, #e67e22); /* Dégradé pour le bouton */
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             text-decoration: none;
-            border-radius: 4px;
-            font-weight: 600;
+            border-radius: 25px; /* Bouton arrondi */
+            font-weight: 700;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .subscribe-button:hover {
+            transform: scale(1.05); /* Effet de zoom */
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.5);
         }
         
         @media (max-width: 992px) {
@@ -375,23 +396,10 @@
             .footer-section {
                 margin-bottom: 2rem;
             }
-            
-            /* Masquer les publicités sur petits écrans */
-            .ad-left, .ad-right {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Ajout des publicités latérales -->
-    <div class="ad-left">
-        <img src="https://via.placeholder.com/160x600" alt="Publicité">
-    </div>
-    <div class="ad-right">
-        <img src="https://via.placeholder.com/160x600" alt="Publicité">
-    </div>
-    
     <header>
         <div class="header-content">
             <div class="logo">Le Canard Déchaîné</div>
@@ -415,6 +423,20 @@
             
             <div class="main-article-content">
                 <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Photo%20du%20G%C3%A9n%C3%A9ral.jpeg" alt="Portrait du général russe">
+                
+                <!-- Encadré d'abonnement déplacé ici -->
+                <div class="subscription-box">
+                    <h3>Abonnez-vous au Canard Déchaîné</h3>
+                    <p>Pour seulement 3,99€ par mois, profitez de nombreux avantages :</p>
+                    <ul>
+                        <li>Lecture illimitée de tous les articles</li>
+                        <li>Accès aux archives</li>
+                        <li>Contenu exclusif réservé aux abonnés</li>
+                        <li>Participation aux événements organisés par le journal</li>
+                    </ul>
+                    <a href="#" class="subscribe-button">S'abonner maintenant</a>
+                </div>
+                
                 <div class="main-article-text">
                     <p><strong>MOSCOU</strong> — Dans un entretien exclusif accordé à notre journal, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité. Une première historique pour les forces armées russes.</p>
                     
@@ -430,19 +452,6 @@
                     
                     <p>Le porte-parole du Kremlin, Dmitri Peskov, n'a pas souhaité commenter cette information, la qualifiant de "rumeur non vérifiée".</p>
                 </div>
-            </div>
-            
-            <!-- Ajout de l'encadré d'abonnement -->
-            <div class="subscription-box">
-                <h3>Abonnez-vous au Canard Déchaîné</h3>
-                <p>Pour seulement 3,99€ par mois, profitez de nombreux avantages :</p>
-                <ul>
-                    <li>Lecture illimitée de tous les articles</li>
-                    <li>Accès aux archives</li>
-                    <li>Contenu exclusif réservé aux abonnés</li>
-                    <li>Participation aux événements organisés par le journal</li>
-                </ul>
-                <a href="#" class="subscribe-button">S'abonner maintenant</a>
             </div>
         </article>
         
@@ -511,10 +520,8 @@
         window.addEventListener('scroll', () => {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > lastScrollTop) {
-                // Défilement vers le bas : masquer l'en-tête
                 header.style.top = '-100px';
             } else {
-                // Défilement vers le haut : afficher l'en-tête
                 header.style.top = '0';
             }
             lastScrollTop = scrollTop;
