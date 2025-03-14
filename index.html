@@ -43,6 +43,7 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            transition: top 0.3s ease; /* Transition fluide pour le défilement */
         }
         
         .header-content {
@@ -178,7 +179,6 @@
             border-radius: 4px;
         }
         
-        /* Nouveau badge Interview Exclusive */
         .exclusive-badge {
             display: inline-block;
             background: linear-gradient(135deg, #ff4e50, #f9d423);
@@ -198,15 +198,9 @@
         }
         
         @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(249, 212, 35, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 10px rgba(249, 212, 35, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(249, 212, 35, 0);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(249, 212, 35, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(249, 212, 35, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(249, 212, 35, 0); }
         }
         
         .secondary-articles {
@@ -300,6 +294,52 @@
             color: white;
         }
         
+        /* Styles pour les publicités latérales */
+        .ad-left, .ad-right {
+            position: fixed;
+            top: 100px; /* Laisse de l'espace sous l'en-tête */
+            width: 160px;
+            z-index: 10;
+        }
+        
+        .ad-left {
+            left: 0;
+        }
+        
+        .ad-right {
+            right: 0;
+        }
+        
+        /* Styles pour l'encadré d'abonnement */
+        .subscription-box {
+            background-color: #f0f8ff;
+            border: 1px solid #c3e0ea;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        
+        .subscription-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subscription-box ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .subscribe-button {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
         @media (max-width: 992px) {
             .secondary-articles {
                 grid-template-columns: repeat(2, 1fr);
@@ -335,10 +375,23 @@
             .footer-section {
                 margin-bottom: 2rem;
             }
+            
+            /* Masquer les publicités sur petits écrans */
+            .ad-left, .ad-right {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Ajout des publicités latérales -->
+    <div class="ad-left">
+        <img src="https://via.placeholder.com/160x600" alt="Publicité">
+    </div>
+    <div class="ad-right">
+        <img src="https://via.placeholder.com/160x600" alt="Publicité">
+    </div>
+    
     <header>
         <div class="header-content">
             <div class="logo">Le Canard Déchaîné</div>
@@ -378,6 +431,19 @@
                     <p>Le porte-parole du Kremlin, Dmitri Peskov, n'a pas souhaité commenter cette information, la qualifiant de "rumeur non vérifiée".</p>
                 </div>
             </div>
+            
+            <!-- Ajout de l'encadré d'abonnement -->
+            <div class="subscription-box">
+                <h3>Abonnez-vous au Canard Déchaîné</h3>
+                <p>Pour seulement 3,99€ par mois, profitez de nombreux avantages :</p>
+                <ul>
+                    <li>Lecture illimitée de tous les articles</li>
+                    <li>Accès aux archives</li>
+                    <li>Contenu exclusif réservé aux abonnés</li>
+                    <li>Participation aux événements organisés par le journal</li>
+                </ul>
+                <a href="#" class="subscribe-button">S'abonner maintenant</a>
+            </div>
         </article>
         
         <div class="secondary-articles">
@@ -392,7 +458,7 @@
                 <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Glacier.jpg" alt="Glacier en train de fondre">
                 <div class="category">Environnement</div>
                 <h2>Le réchauffement climatique atteint un nouveau seuil critique</h2>
-                <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le
+                <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le</p>
             </article>
             
             <article class="secondary-article">
@@ -437,5 +503,22 @@
             </div>
         </div>
     </footer>
-</body>
+    
+    <!-- Script pour gérer le défilement de l'en-tête -->
+    <script>
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // Défilement vers le bas : masquer l'en-tête
+                header.style.top = '-100px';
+            } else {
+                // Défilement vers le haut : afficher l'en-tête
+                header.style.top = '0';
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'920548b14e7c1375',t:'MTc0MTk3MTE3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
