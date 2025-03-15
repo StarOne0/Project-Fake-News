@@ -16,6 +16,16 @@
             --category-color: #e67e22;
         }
         
+        body.dark-mode {
+            --primary-color: #003d50;
+            --accent-color: #e67e22;
+            --text-color: #ddd;
+            --light-text: #aaa;
+            --bg-color: #1a1a1a;
+            --border-color: #444;
+            --category-color: #d35400;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -27,7 +37,7 @@
         body {
             font-family: 'Quicksand', sans-serif;
             line-height: 1.6;
-            background: linear-gradient(135deg, #f5f9fa, #e6f0f5, #f5f9fa);
+            background: linear-gradient(135deg, var(--bg-color), #e6f0f5, var(--bg-color));
             background-size: 200% 200%;
             animation: backgroundGradient 15s ease infinite;
             color: var(--text-color);
@@ -105,11 +115,16 @@
             position: absolute;
             top: 0;
             left: 0;
-            height: 4px;
+            height: 2px;
             background: var(--accent-color);
             transform: translateX(-100%);
-            transition: transform 0.1s linear;
+            transition: transform 0.1s linear, opacity 0.3s ease;
+            opacity: 0.6;
             z-index: 101;
+        }
+        
+        .scroll-progress.active {
+            opacity: 1;
         }
         
         .logo {
@@ -183,7 +198,7 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             font-weight: 500;
-            padding: 4px 10px; /* Réduit pour un bouton plus compact */
+            padding: 4px 10px;
             border-radius: 4px;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -220,6 +235,19 @@
             100% { opacity: 1; }
         }
         
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+        }
+        
         .subscriber-notice {
             position: absolute;
             right: 10px;
@@ -231,6 +259,7 @@
             padding: 4px 8px;
             border-radius: 4px;
             display: none;
+            white-space: nowrap;
         }
         
         .container {
@@ -407,6 +436,10 @@
             animation: cardFadeIn 1.5s ease-in-out;
         }
         
+        body.dark-mode .secondary-article {
+            background-color: #2a2a2a;
+        }
+        
         .secondary-articles .secondary-article:nth-child(1) {
             animation-delay: 0s;
         }
@@ -493,6 +526,10 @@
             font-weight: 600;
         }
         
+        body.dark-mode .footer-section h3 {
+            border-bottom-color: #666;
+        }
+        
         .footer-section ul {
             list-style: none;
         }
@@ -515,13 +552,18 @@
         
         .subscription-box {
             background-color: #f0f8ff;
-            border: 1px solid #c3e0ea;
+            border: 1px solid var(--border-color);
             padding: 20px;
             margin-top: 20px;
             border-radius: 4px;
             position: relative;
             overflow: hidden;
             animation: boxGlow 4s infinite;
+        }
+        
+        body.dark-mode .subscription-box {
+            background-color: #333;
+            border-color: #555;
         }
         
         @keyframes boxGlow {
@@ -817,10 +859,27 @@
                 flex-wrap: wrap;
                 justify-content: center;
                 margin-right: 0;
+                gap: 15px;
             }
 
             .header-actions {
                 justify-content: center;
+                gap: 8px;
+            }
+
+            .subscribe-top, .login-top {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+            }
+
+            .notification-icon, .theme-toggle {
+                font-size: 1rem;
+            }
+
+            .subscriber-notice {
+                font-size: 0.7rem;
+                padding: 3px 6px;
+                right: 5px;
             }
 
             .main-article-content {
@@ -871,6 +930,7 @@
                 <a href="#" class="subscribe-top">S'abonner</a>
                 <a href="#" class="login-top">Se connecter</a>
                 <span class="notification-icon">🔔</span>
+                <button class="theme-toggle">🌙</button>
             </div>
             <div class="scroll-progress"></div>
             <div class="subscriber-notice">🔒 Contenu réservé aux abonnés</div>
@@ -1013,39 +1073,50 @@
     <script>
         let lastScrollTop = 0;
         const header = document.querySelector('header');
+        let ticking = false;
 
         window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                header.classList.add('hidden');
-            } else {
-                header.classList.remove('hidden');
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    if (scrollTop > lastScrollTop && scrollTop > 100) {
+                        header.classList.add('hidden');
+                    } else {
+                        header.classList.remove('hidden');
+                    }
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 
-            // Indicateur de progression
-            const winScroll = document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.querySelector('.scroll-progress').style.transform = `translateX(${-(100 - scrolled)}%)`;
+                    // Indicateur de progression
+                    const winScroll = document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (winScroll / height) * 100;
+                    const progressBar = document.querySelector('.scroll-progress');
+                    progressBar.style.transform = `translateX(${-(100 - scrolled)}%)`;
+                    progressBar.classList.add('active');
 
-            // Notification abonnés
-            const article = document.querySelector('.main-article');
-            const notice = document.querySelector('.subscriber-notice');
-            const articleTop = article.getBoundingClientRect().top;
-            if (articleTop <= 100) {
-                notice.style.display = 'block';
-            } else {
-                notice.style.display = 'none';
-            }
+                    // Notification abonnés
+                    const article = document.querySelector('.main-article');
+                    const notice = document.querySelector('.subscriber-notice');
+                    const articleTop = article.getBoundingClientRect().top;
+                    const articleBottom = article.getBoundingClientRect().bottom;
+                    if (articleTop <= window.innerHeight && articleBottom >= 0) {
+                        notice.style.display = 'block';
+                    } else {
+                        notice.style.display = 'none';
+                    }
 
-            // Bouton "Retour en haut"
-            const scrollToTopBtn = document.querySelector('.scroll-to-top');
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.classList.add('visible');
-            } else {
-                scrollToTopBtn.classList.remove('visible');
+                    // Bouton "Retour en haut"
+                    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+                    if (window.pageYOffset > 300) {
+                        scrollToTopBtn.classList.add('visible');
+                    } else {
+                        scrollToTopBtn.classList.remove('visible');
+                    }
+
+                    ticking = false;
+                });
+                ticking = true;
             }
         }, { passive: true });
 
@@ -1115,10 +1186,32 @@
             function updateDateTime() {
                 const dateElement = document.getElementById('dynamic-date');
                 const now = new Date();
-                dateElement.textContent = `Mise à jour : ${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR')}`;
+                const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                dateElement.textContent = `Mise à jour : ${now.toLocaleDateString('fr-FR', dateOptions)} à ${now.toLocaleTimeString('fr-FR', timeOptions)}`;
             }
             setInterval(updateDateTime, 1000);
             updateDateTime();
+
+            // Gestion du mode sombre/clair
+            const themeToggle = document.querySelector('.theme-toggle');
+            const body = document.body;
+
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+                themeToggle.textContent = '☀️';
+            }
+
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    themeToggle.textContent = '☀️';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    themeToggle.textContent = '🌙';
+                    localStorage.setItem('theme', 'light');
+                }
+            });
         });
 
         function scrollToTop() {
