@@ -204,12 +204,21 @@
             margin-bottom: 0.5rem;
             line-height: 1.2;
             font-weight: 700;
-            animation: slideIn 1s ease-out;
         }
         
-        @keyframes slideIn {
-            0% { opacity: 0; transform: translateX(-20px); }
-            100% { opacity: 1; transform: translateX(0); }
+        .title-animation {
+            animation: titleFadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes titleFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .main-article .subtitle {
@@ -531,12 +540,13 @@
         }
         
         .popup-content {
+            width: 450px; /* Élargissement pour un rectangle-carré élégant */
+            padding: 30px;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.8);
             background-color: white;
-            padding: 20px;
             border-radius: 8px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -665,7 +675,7 @@
         
         <article class="main-article">
             <div class="category">International</div>
-            <h1>Un général russe fait son coming out <span class="exclusive-badge">Interview Exclusive</span></h1>
+            <h1 class="title-animation">Un général russe fait son coming out <span class="exclusive-badge">Interview Exclusive</span></h1>
             <div class="subtitle">Dans un pays où l'homosexualité reste tabou, un haut gradé de l'armée russe se confie en exclusivité à notre journal</div>
             
             <div class="main-article-content">
@@ -784,6 +794,13 @@
             } else {
                 scrollToTopBtn.classList.remove('visible');
             }
+            
+            // Effet de parallaxe sur les images secondaires
+            const parallaxImages = document.querySelectorAll('.secondary-article img');
+            parallaxImages.forEach(function(image) {
+                const speed = 0.5;
+                image.style.transform = `translateY(${scrollTop * speed}px)`;
+            });
         }, { passive: true });
 
         document.addEventListener('DOMContentLoaded', function() {
