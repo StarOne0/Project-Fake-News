@@ -95,6 +95,18 @@
             align-items: center;
         }
         
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
         .logo {
             font-size: 1.75rem;
             font-weight: 700;
@@ -150,6 +162,35 @@
         
         .nav-links a:hover {
             color: var(--accent-color);
+        }
+        
+        .subscribe-top, .login-top {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .subscribe-top {
+            background-color: var(--accent-color);
+        }
+        
+        .subscribe-top:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+        
+        .login-top {
+            border: 1px solid white;
+        }
+        
+        .login-top:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
         }
         
         .container {
@@ -209,7 +250,7 @@
         .title-animation {
             animation: titleFadeIn 1.5s ease-in-out;
         }
-
+        
         @keyframes titleFadeIn {
             0% {
                 opacity: 0;
@@ -540,7 +581,7 @@
         }
         
         .popup-content {
-            width: 450px; /* Élargissement pour un rectangle-carré élégant */
+            width: 450px;
             padding: 30px;
             position: absolute;
             top: 50%;
@@ -589,6 +630,51 @@
             cursor: pointer;
         }
         
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--accent-color);
+        }
+        
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .submit-button:hover {
+            background-color: #004a5f;
+            transform: scale(1.02);
+        }
+        
         .scroll-to-top {
             position: fixed;
             bottom: 20px;
@@ -623,6 +709,20 @@
         }
         
         @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .header-left, .header-right {
+                justify-content: center;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
             .main-article-content {
                 flex-direction: column;
             }
@@ -659,13 +759,19 @@
     
     <header>
         <div class="header-content">
-            <div class="logo">Le Canard Déchaîné</div>
-            <div class="nav-links">
-                <a href="#">Politique</a>
-                <a href="#">International</a>
-                <a href="#">Économie</a>
-                <a href="#">Culture</a>
-                <a href="#">Opinions</a>
+            <div class="header-left">
+                <div class="logo">Le Canard Déchaîné</div>
+                <a href="#" class="subscribe-top">S'abonner</a>
+            </div>
+            <div class="header-right">
+                <div class="nav-links">
+                    <a href="#">Politique</a>
+                    <a href="#">International</a>
+                    <a href="#">Économie</a>
+                    <a href="#">Culture</a>
+                    <a href="#">Opinions</a>
+                </div>
+                <a href="#" class="login-top">Se connecter</a>
             </div>
         </div>
     </header>
@@ -772,6 +878,24 @@
         </div>
     </div>
     
+    <div class="popup" id="login-popup">
+        <div class="popup-content">
+            <h3>Se connecter</h3>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Adresse e-mail</label>
+                    <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="submit-button">Connexion</button>
+            </form>
+            <button class="close-button">Fermer</button>
+        </div>
+    </div>
+    
     <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
     
     <script>
@@ -794,33 +918,57 @@
             } else {
                 scrollToTopBtn.classList.remove('visible');
             }
-            
-            // Effet de parallaxe sur les images secondaires
-            const parallaxImages = document.querySelectorAll('.secondary-article img');
-            parallaxImages.forEach(function(image) {
-                const speed = 0.5;
-                image.style.transform = `translateY(${scrollTop * speed}px)`;
-            });
         }, { passive: true });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const subscribeButton = document.querySelector('.subscribe-button');
-            const popup = document.getElementById('subscription-popup');
-            const closeButton = popup.querySelector('.close-button');
+            // Pop-up d'abonnement
+            const subscribeButtons = document.querySelectorAll('.subscribe-button, .subscribe-top');
+            const subscriptionPopup = document.getElementById('subscription-popup');
+            const subscriptionCloseButton = subscriptionPopup.querySelector('.close-button');
 
-            subscribeButton.addEventListener('click', function(event) {
-                event.preventDefault();
-                popup.classList.add('visible');
+            subscribeButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    subscriptionPopup.classList.add('visible');
+                });
             });
 
-            closeButton.addEventListener('click', function() {
-                popup.classList.remove('visible');
+            subscriptionCloseButton.addEventListener('click', function() {
+                subscriptionPopup.classList.remove('visible');
             });
 
-            popup.addEventListener('click', function(event) {
-                if (event.target === popup) {
-                    popup.classList.remove('visible');
+            subscriptionPopup.addEventListener('click', function(event) {
+                if (event.target === subscriptionPopup) {
+                    subscriptionPopup.classList.remove('visible');
                 }
+            });
+
+            // Pop-up de connexion
+            const loginButton = document.querySelector('.login-top');
+            const loginPopup = document.getElementById('login-popup');
+            const loginCloseButton = loginPopup.querySelector('.close-button');
+
+            loginButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                loginPopup.classList.add('visible');
+            });
+
+            loginCloseButton.addEventListener('click', function() {
+                loginPopup.classList.remove('visible');
+            });
+
+            loginPopup.addEventListener('click', function(event) {
+                if (event.target === loginPopup) {
+                    loginPopup.classList.remove('visible');
+                }
+            });
+
+            // Gestion du formulaire de connexion (simulation)
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                alert('Connexion simulée ! (Fonctionnalité backend non implémentée)');
+                loginPopup.classList.remove('visible');
             });
         });
 
