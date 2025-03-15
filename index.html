@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Canard Déchaîné - L'actualité en continu</title>
+    <title>Le Canard Déchaîné - Actualité en continu | Interview exclusive d'un général russe</title>
     <style>
         :root {
             --primary-color: #005e7c;
@@ -32,7 +32,7 @@
             animation: backgroundGradient 15s ease infinite;
             color: var(--text-color);
             position: relative;
-            overflow-x: hidden; /* Éviter les débordements horizontaux */
+            overflow-x: hidden;
         }
         
         @keyframes backgroundGradient {
@@ -41,11 +41,10 @@
             100% { background-position: 0% 0%; }
         }
         
-        /* Arc-en-ciel en arrière-plan */
         .rainbow {
             position: fixed;
             top: 0;
-            left: -100%; /* Départ hors de l'écran */
+            left: -100%;
             width: 200%;
             height: 100%;
             background: linear-gradient(
@@ -58,18 +57,18 @@
                 rgba(75, 0, 130, 0.3),
                 rgba(238, 130, 238, 0.3)
             );
-            filter: blur(50px); /* Effet flou pour un look plus doux */
+            filter: blur(50px);
             opacity: 0.5;
-            z-index: -1; /* Derrière tous les autres éléments */
-            animation: rainbowMove 15s infinite ease-in-out; /* Défilement toutes les 15 secondes */
+            z-index: -1;
+            animation: rainbowMove 15s infinite ease-in-out;
         }
         
         @keyframes rainbowMove {
             0% { transform: translateX(-100%); opacity: 0; }
-            20% { opacity: 0.5; } /* Apparition progressive */
-            50% { transform: translateX(50%); opacity: 0.5; } /* Passage au centre */
-            80% { opacity: 0.5; } /* Disparition progressive */
-            100% { transform: translateX(200%); opacity: 0; } /* Sortie de l'écran */
+            20% { opacity: 0.5; }
+            50% { transform: translateX(50%); opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translateX(200%); opacity: 0; }
         }
         
         h1, h2, h3, .logo {
@@ -160,7 +159,7 @@
             margin: 0 auto;
             padding: var(--section-padding) 0;
             position: relative;
-            z-index: 1; /* Assurer que le contenu reste au-dessus de l'arc-en-ciel */
+            z-index: 1;
         }
         
         .date {
@@ -305,7 +304,7 @@
         
         .secondary-articles {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
         }
         
@@ -365,7 +364,7 @@
             border-top: 4px solid var(--accent-color);
             animation: footerFade 5s infinite;
             position: relative;
-            z-index: 1; /* Assurer que le footer est au-dessus de l'arc-en-ciel */
+            z-index: 1;
         }
         
         @keyframes footerFade {
@@ -415,7 +414,6 @@
             transform: scale(1.1);
         }
         
-        /* Styles pour l'encadré d'abonnement avec visuels attractifs */
         .subscription-box {
             background-color: #f0f8ff;
             border: 1px solid #c3e0ea;
@@ -505,6 +503,47 @@
             transform: scale(1.1);
         }
         
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .payment-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .close-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
         @media (max-width: 992px) {
             .secondary-articles {
                 grid-template-columns: repeat(2, 1fr);
@@ -544,7 +583,6 @@
     </style>
 </head>
 <body>
-    <!-- Arc-en-ciel animé -->
     <div class="rainbow"></div>
     
     <header>
@@ -579,7 +617,6 @@
                     <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
                     <p>Des militants pour les droits LGBT+ ont salué ce geste comme "extraordinairement courageux" mais s'inquiètent des conséquences possibles pour le général Petrov. Ils appellent à une mobilisation internationale pour soutenir sa cause.</p>
                     
-                    <!-- Encadré à la fin du texte -->
                     <div class="subscription-box">
                         <h3>Abonnez-vous au Canard Déchaîné</h3>
                         <p>Pour seulement 3,99€ par mois, accédez à la suite de cet article et à tout notre contenu exclusif :</p>
@@ -653,7 +690,15 @@
         </div>
     </footer>
     
-    <!-- Script pour gérer le défilement de l'en-tête -->
+    <div class="popup" id="subscription-popup">
+        <div class="popup-content">
+            <h3>Choisissez votre mode de paiement</h3>
+            <button class="payment-button apple-pay">Payer avec Apple Pay</button>
+            <button class="payment-button google-pay">Payer avec Google Pay</button>
+            <button class="close-button">Fermer</button>
+        </div>
+    </div>
+    
     <script>
         let lastScrollTop = 0;
         const header = document.querySelector('header');
@@ -667,6 +712,27 @@
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         }, { passive: true });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const subscribeButton = document.querySelector('.subscribe-button');
+            const popup = document.getElementById('subscription-popup');
+            const closeButton = popup.querySelector('.close-button');
+
+            subscribeButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                popup.style.display = 'block';
+            });
+
+            closeButton.addEventListener('click', function() {
+                popup.style.display = 'none';
+            });
+
+            popup.addEventListener('click', function(event) {
+                if (event.target === popup) {
+                    popup.style.display = 'none';
+                }
+            });
+        });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'920548b14e7c1375',t:'MTc0MTk3MTE3Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
