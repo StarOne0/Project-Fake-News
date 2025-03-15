@@ -98,6 +98,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+        }
+        
+        .scroll-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent-color);
+            transform: translateX(-100%);
+            transition: transform 0.1s linear;
+            z-index: 101;
         }
         
         .logo {
@@ -136,7 +148,7 @@
             text-transform: uppercase;
             font-weight: 500;
             position: relative;
-            transition: color 0.3s ease-in-out;
+            transition: color 0.3s ease-in-out, text-shadow 0.3s ease;
         }
         
         .nav-links a::after {
@@ -156,11 +168,13 @@
         
         .nav-links a:hover {
             color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(243, 156, 18, 0.5);
         }
         
         .header-actions {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
         
         .subscribe-top, .login-top {
@@ -169,9 +183,9 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             font-weight: 500;
-            padding: 6px 12px;
+            padding: 4px 10px; /* Réduit pour un bouton plus compact */
             border-radius: 4px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .subscribe-top {
@@ -181,6 +195,7 @@
         .subscribe-top:hover {
             background-color: #e67e22;
             transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         
         .login-top {
@@ -190,6 +205,32 @@
         .login-top:hover {
             background-color: rgba(255, 255, 255, 0.1);
             transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .notification-icon {
+            font-size: 1.2rem;
+            color: white;
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        .subscriber-notice {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: none;
         }
         
         .container {
@@ -829,12 +870,15 @@
             <div class="header-actions">
                 <a href="#" class="subscribe-top">S'abonner</a>
                 <a href="#" class="login-top">Se connecter</a>
+                <span class="notification-icon">🔔</span>
             </div>
+            <div class="scroll-progress"></div>
+            <div class="subscriber-notice">🔒 Contenu réservé aux abonnés</div>
         </div>
     </header>
     
     <div class="container">
-        <div class="date">Vendredi 14 mars 2025</div>
+        <div class="date" id="dynamic-date">Vendredi 14 mars 2025</div>
         
         <article class="main-article">
             <div class="category">International</div>
@@ -980,6 +1024,23 @@
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 
+            // Indicateur de progression
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.scroll-progress').style.transform = `translateX(${-(100 - scrolled)}%)`;
+
+            // Notification abonnés
+            const article = document.querySelector('.main-article');
+            const notice = document.querySelector('.subscriber-notice');
+            const articleTop = article.getBoundingClientRect().top;
+            if (articleTop <= 100) {
+                notice.style.display = 'block';
+            } else {
+                notice.style.display = 'none';
+            }
+
+            // Bouton "Retour en haut"
             const scrollToTopBtn = document.querySelector('.scroll-to-top');
             if (window.pageYOffset > 300) {
                 scrollToTopBtn.classList.add('visible');
@@ -1049,6 +1110,15 @@
             if (localStorage.getItem('cookiesAccepted')) {
                 cookiePopup.classList.remove('visible');
             }
+
+            // Date et heure dynamiques
+            function updateDateTime() {
+                const dateElement = document.getElementById('dynamic-date');
+                const now = new Date();
+                dateElement.textContent = `Mise à jour : ${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR')}`;
+            }
+            setInterval(updateDateTime, 1000);
+            updateDateTime();
         });
 
         function scrollToTop() {
