@@ -24,6 +24,7 @@
             --bg-color: #1a1a1a;
             --border-color: #444;
             --category-color: #d35400;
+            background: linear-gradient(135deg, var(--bg-color), #2a2a2a, var(--bg-color));
         }
 
         * {
@@ -39,6 +40,7 @@
             line-height: 1.6;
             background: linear-gradient(135deg, var(--bg-color), #e6f0f5, var(--bg-color));
             background-size: 200% 200%;
+            -webkit-animation: backgroundGradient 15s ease infinite;
             animation: backgroundGradient 15s ease infinite;
             color: var(--text-color);
             position: relative;
@@ -70,7 +72,22 @@
             filter: blur(50px);
             opacity: 0.5;
             z-index: -1;
-            animation: rainbowMove 15s infinite ease-in-out;
+            -webkit-animation: rainbowMove 20s infinite ease-in-out;
+            animation: rainbowMove 20s infinite ease-in-out;
+        }
+
+        body.dark-mode .rainbow {
+            opacity: 0.3;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.2),
+                rgba(255, 165, 0, 0.2),
+                rgba(255, 255, 0, 0.2),
+                rgba(0, 128, 0, 0.2),
+                rgba(0, 0, 255, 0.2),
+                rgba(75, 0, 130, 0.2),
+                rgba(238, 130, 238, 0.2)
+            );
         }
         
         @keyframes rainbowMove {
@@ -246,20 +263,6 @@
         
         .theme-toggle:hover {
             transform: rotate(15deg);
-        }
-        
-        .subscriber-notice {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.8rem;
-            color: white;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: none;
-            white-space: nowrap;
         }
         
         .container {
@@ -566,6 +569,11 @@
             border-color: #555;
         }
         
+        body.dark-mode .subscription-box p,
+        body.dark-mode .subscription-box h3 {
+            color: #ddd;
+        }
+        
         @keyframes boxGlow {
             0% { box-shadow: 0 0 0 rgba(243, 156, 18, 0.5); }
             50% { box-shadow: 0 0 15px rgba(243, 156, 18, 0.8); }
@@ -633,6 +641,10 @@
             animation: buttonPulse 3s infinite;
         }
         
+        body.dark-mode .subscribe-button {
+            background-color: #e67e22;
+        }
+        
         @keyframes buttonPulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -680,6 +692,11 @@
             transform: translate(-50%, -50%) scale(1);
         }
         
+        body.dark-mode .popup-content {
+            background-color: #2a2a2a;
+            color: #ddd;
+        }
+        
         .payment-button {
             display: block;
             width: 100%;
@@ -724,6 +741,10 @@
             color: var(--text-color);
         }
         
+        body.dark-mode .form-group label {
+            color: #ddd;
+        }
+        
         .form-group input {
             width: 100%;
             padding: 8px;
@@ -732,6 +753,12 @@
             border-radius: 4px;
             outline: none;
             transition: border-color 0.3s ease;
+        }
+        
+        body.dark-mode .form-group input {
+            background-color: #333;
+            color: #ddd;
+            border-color: #555;
         }
         
         .form-group input:focus {
@@ -750,6 +777,10 @@
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        body.dark-mode .submit-button {
+            background-color: #e67e22;
         }
         
         .submit-button:hover {
@@ -777,6 +808,11 @@
             display: block;
         }
         
+        body.dark-mode .cookie-popup {
+            background-color: #2a2a2a;
+            color: #ddd;
+        }
+        
         .cookie-content {
             text-align: left;
         }
@@ -802,6 +838,10 @@
             transition: background-color 0.3s ease;
         }
         
+        body.dark-mode .cookie-accept {
+            background-color: #e67e22;
+        }
+        
         .cookie-accept:hover {
             background-color: #e67e22;
         }
@@ -810,6 +850,10 @@
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 500;
+        }
+        
+        body.dark-mode .cookie-settings {
+            color: var(--accent-color);
         }
         
         .cookie-settings:hover {
@@ -850,6 +894,10 @@
         }
         
         @media (max-width: 768px) {
+            .rainbow {
+                display: none;
+            }
+
             .header-content {
                 flex-direction: column;
                 gap: 10px;
@@ -874,12 +922,6 @@
 
             .notification-icon, .theme-toggle {
                 font-size: 1rem;
-            }
-
-            .subscriber-notice {
-                font-size: 0.7rem;
-                padding: 3px 6px;
-                right: 5px;
             }
 
             .main-article-content {
@@ -930,10 +972,9 @@
                 <a href="#" class="subscribe-top">S'abonner</a>
                 <a href="#" class="login-top">Se connecter</a>
                 <span class="notification-icon">🔔</span>
-                <button class="theme-toggle">🌙</button>
+                <button class="theme-toggle" aria-label="Basculer entre mode sombre et clair">🌙</button>
             </div>
             <div class="scroll-progress"></div>
-            <div class="subscriber-notice">🔒 Contenu réservé aux abonnés</div>
         </div>
     </header>
     
@@ -946,7 +987,7 @@
             <div class="subtitle">Dans un pays où l'homosexualité reste tabou, un haut gradé de l'armée russe se confie en exclusivité à notre journal</div>
             
             <div class="main-article-content">
-                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Photo%20du%20G%C3%A9n%C3%A9ral.jpeg" alt="Portrait du général russe">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Photo%20du%20G%C3%A9n%C3%A9ral.jpeg" alt="Portrait en noir et blanc du général Mikhail Petrov">
                 
                 <div class="main-article-text">
                     <p><strong>MOSCOU</strong> — Dans un entretien exclusif accordé à notre journal, le général Mikhail Petrov, commandant de la 58e armée interarmes, a publiquement révélé son homosexualité. Une première historique pour les forces armées russes.</p>
@@ -973,21 +1014,21 @@
         
         <div class="secondary-articles">
             <article class="secondary-article">
-                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Inflation.jpg" alt="Graphique sur l'inflation">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Inflation.jpg" alt="Graphique illustrant la montée de l'inflation">
                 <div class="category">Économie</div>
                 <h2>Le FMI alerte sur les risques d'une inflation persistante</h2>
                 <p>Dans son dernier rapport, le Fonds Monétaire International met en garde contre les effets à long terme d'une inflation structurelle qui pourrait affecter la reprise économique mondiale.</p>
             </article>
             
             <article class="secondary-article">
-                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Glacier.jpg" alt="Glacier en train de fondre">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Glacier.jpg" alt="Glacier fondant sous l'effet du réchauffement climatique">
                 <div class="category">Environnement</div>
                 <h2>Le réchauffement climatique atteint un nouveau seuil critique</h2>
                 <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le GIEC.</p>
             </article>
             
             <article class="secondary-article">
-                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/robot%20%26%20humain.jpg" alt="Robot et humain travaillant ensemble">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/robot%20%26%20humain.jpg" alt="Humain et robot collaborant dans un environnement de travail">
                 <div class="category">Technologie</div>
                 <h2>L'intelligence artificielle bouleverse le marché du travail</h2>
                 <p>Une récente étude révèle que l'adoption massive de l'IA dans les entreprises transforme radicalement certains métiers, créant de nouvelles opportunités mais aussi des défis d'adaptation.</p>
@@ -1033,7 +1074,7 @@
         <div class="popup-content">
             <h3>Payer avec</h3>
             <a href="#" class="payment-button">
-                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/paypal.png" alt="Payer avec PayPal" style="max-width: 150px;">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/paypal.png" alt="Logo PayPal pour le paiement">
             </a>
             <button class="close-button">Fermer</button>
         </div>
@@ -1068,7 +1109,7 @@
         </div>
     </div>
     
-    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+    <button class="scroll-to-top" aria-label="Retour en haut de la page" onclick="scrollToTop()">↑</button>
     
     <script>
         let lastScrollTop = 0;
@@ -1094,17 +1135,6 @@
                     const progressBar = document.querySelector('.scroll-progress');
                     progressBar.style.transform = `translateX(${-(100 - scrolled)}%)`;
                     progressBar.classList.add('active');
-
-                    // Notification abonnés
-                    const article = document.querySelector('.main-article');
-                    const notice = document.querySelector('.subscriber-notice');
-                    const articleTop = article.getBoundingClientRect().top;
-                    const articleBottom = article.getBoundingClientRect().bottom;
-                    if (articleTop <= window.innerHeight && articleBottom >= 0) {
-                        notice.style.display = 'block';
-                    } else {
-                        notice.style.display = 'none';
-                    }
 
                     // Bouton "Retour en haut"
                     const scrollToTopBtn = document.querySelector('.scroll-to-top');
