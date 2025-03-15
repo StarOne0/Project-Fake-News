@@ -83,7 +83,12 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: top 0.3s ease-in-out;
+            transform: translateY(0);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        header.hidden {
+            transform: translateY(-100%);
         }
         
         .header-content {
@@ -120,7 +125,8 @@
         
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 20px;
+            margin-right: 20px;
         }
         
         .nav-links a {
@@ -154,7 +160,7 @@
         
         .header-actions {
             display: flex;
-            gap: 15px;
+            gap: 10px;
         }
         
         .subscribe-top, .login-top {
@@ -163,7 +169,7 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             font-weight: 500;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 4px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
@@ -769,6 +775,7 @@
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
+                margin-right: 0;
             }
 
             .header-actions {
@@ -965,14 +972,14 @@
 
         window.addEventListener('scroll', function() {
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
             if (scrollTop > lastScrollTop && scrollTop > 100) {
-                header.style.top = '-80px';
+                header.classList.add('hidden');
             } else {
-                header.style.top = '0';
+                header.classList.remove('hidden');
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-            
-            // Afficher le bouton "Retour en haut"
+
             const scrollToTopBtn = document.querySelector('.scroll-to-top');
             if (window.pageYOffset > 300) {
                 scrollToTopBtn.classList.add('visible');
@@ -982,7 +989,6 @@
         }, { passive: true });
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Pop-up d'abonnement
             const subscribeButtons = document.querySelectorAll('.subscribe-button, .subscribe-top');
             const subscriptionPopup = document.getElementById('subscription-popup');
             const subscriptionCloseButton = subscriptionPopup.querySelector('.close-button');
@@ -1004,7 +1010,6 @@
                 }
             });
 
-            // Pop-up de connexion
             const loginButton = document.querySelector('.login-top');
             const loginPopup = document.getElementById('login-popup');
             const loginCloseButton = loginPopup.querySelector('.close-button');
@@ -1024,7 +1029,6 @@
                 }
             });
 
-            // Gestion du formulaire de connexion (simulation)
             const loginForm = document.getElementById('login-form');
             loginForm.addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -1032,21 +1036,16 @@
                 loginPopup.classList.remove('visible');
             });
 
-            // Pop-up de cookies
             const cookiePopup = document.getElementById('cookie-popup');
             const cookieAccept = document.querySelector('.cookie-accept');
 
-            // Afficher le pop-up au chargement
             cookiePopup.classList.add('visible');
 
-            // Accepter les cookies et masquer le pop-up
             cookieAccept.addEventListener('click', function() {
                 cookiePopup.classList.remove('visible');
-                // Simuler l'enregistrement du consentement
                 localStorage.setItem('cookiesAccepted', 'true');
             });
 
-            // Vérifier si les cookies ont déjà été acceptés
             if (localStorage.getItem('cookiesAccepted')) {
                 cookiePopup.classList.remove('visible');
             }
