@@ -93,18 +93,57 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
         
         .header-left {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
         
         .header-right {
             display: flex;
             align-items: center;
             gap: 20px;
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        
+        .search-bar input {
+            padding: 6px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        
+        .search-bar button {
+            background: none;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 0 4px 4px 0;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .search-bar button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         .logo {
@@ -133,6 +172,7 @@
         .nav-links {
             display: flex;
             gap: 30px;
+            align-items: center;
         }
         
         .nav-links a {
@@ -177,6 +217,7 @@
         
         .subscribe-top {
             background-color: var(--accent-color);
+            margin-right: 10px;
         }
         
         .subscribe-top:hover {
@@ -675,6 +716,65 @@
             transform: scale(1.02);
         }
         
+        .cookie-popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            z-index: 2000;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+        }
+        
+        .cookie-popup.visible {
+            display: block;
+        }
+        
+        .cookie-content {
+            text-align: left;
+        }
+        
+        .cookie-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .cookie-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .cookie-accept {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cookie-accept:hover {
+            background-color: #e67e22;
+        }
+        
+        .cookie-settings {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .cookie-settings:hover {
+            text-decoration: underline;
+        }
+        
         .scroll-to-top {
             position: fixed;
             bottom: 20px;
@@ -709,18 +809,31 @@
         }
         
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .header-left, .header-right {
-                justify-content: center;
+            .menu-toggle {
+                display: block;
             }
             
             .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .header-left {
+                justify-content: flex-start;
+            }
+            
+            .search-bar {
+                display: none;
             }
             
             .main-article-content {
@@ -760,18 +873,21 @@
     <header>
         <div class="header-content">
             <div class="header-left">
+                <button class="menu-toggle">☰</button>
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher..." aria-label="Rechercher">
+                    <button type="button">🔍</button>
+                </div>
                 <div class="logo">Le Canard Déchaîné</div>
                 <a href="#" class="subscribe-top">S'abonner</a>
-            </div>
-            <div class="header-right">
-                <div class="nav-links">
-                    <a href="#">Politique</a>
-                    <a href="#">International</a>
-                    <a href="#">Économie</a>
-                    <a href="#">Culture</a>
-                    <a href="#">Opinions</a>
-                </div>
                 <a href="#" class="login-top">Se connecter</a>
+            </div>
+            <div class="nav-links">
+                <a href="#">Politique</a>
+                <a href="#">International</a>
+                <a href="#">Économie</a>
+                <a href="#">Culture</a>
+                <a href="#">Opinions</a>
             </div>
         </div>
     </header>
@@ -896,6 +1012,17 @@
         </div>
     </div>
     
+    <div class="cookie-popup" id="cookie-popup">
+        <div class="cookie-content">
+            <h3>Nous utilisons des cookies</h3>
+            <p>Nous utilisons des cookies pour améliorer votre expérience sur notre site. Certains sont essentiels, tandis que d'autres nous aident à analyser et à personnaliser votre navigation. Vous pouvez accepter tous les cookies ou personnaliser vos préférences.</p>
+            <div class="cookie-buttons">
+                <button class="cookie-accept">Accepter tous</button>
+                <a href="#" class="cookie-settings">Paramètres des cookies</a>
+            </div>
+        </div>
+    </div>
+    
     <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
     
     <script>
@@ -970,6 +1097,25 @@
                 alert('Connexion simulée ! (Fonctionnalité backend non implémentée)');
                 loginPopup.classList.remove('visible');
             });
+
+            // Pop-up de cookies
+            const cookiePopup = document.getElementById('cookie-popup');
+            const cookieAccept = document.querySelector('.cookie-accept');
+
+            // Afficher le pop-up au chargement
+            cookiePopup.classList.add('visible');
+
+            // Accepter les cookies et masquer le pop-up
+            cookieAccept.addEventListener('click', function() {
+                cookiePopup.classList.remove('visible');
+                // Simuler l'enregistrement du consentement
+                localStorage.setItem('cookiesAccepted', 'true');
+            });
+
+            // Vérifier si les cookies ont déjà été acceptés
+            if (localStorage.getItem('cookiesAccepted')) {
+                cookiePopup.classList.remove('visible');
+            }
         });
 
         function scrollToTop() {
