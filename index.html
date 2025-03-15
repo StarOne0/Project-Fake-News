@@ -532,6 +532,19 @@
             margin: 10px 0;
             font-size: 1rem;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .payment-button img {
+            display: block;
+            margin: 10px auto;
+            transition: transform 0.3s ease;
+            max-width: 150px;
+        }
+        
+        .payment-button:hover img {
+            transform: scale(1.05);
         }
         
         .close-button {
@@ -644,7 +657,7 @@
                 <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Glacier.jpg" alt="Glacier en train de fondre">
                 <div class="category">Environnement</div>
                 <h2>Le réchauffement climatique atteint un nouveau seuil critique</h2>
-                <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le</p>
+                <p>Des chercheurs ont observé une augmentation inquiétante des températures océaniques, dépassant les projections les plus pessimistes établies par le GIEC.</p>
             </article>
             
             <article class="secondary-article">
@@ -693,8 +706,9 @@
     <div class="popup" id="subscription-popup">
         <div class="popup-content">
             <h3>Choisissez votre mode de paiement</h3>
-            <button class="payment-button apple-pay">Payer avec Apple Pay</button>
-            <button class="payment-button google-pay">Payer avec Google Pay</button>
+            <a href="#" class="payment-button">
+                <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/paypal.png" alt="Payer avec PayPal" style="max-width: 150px;">
+            </a>
             <button class="close-button">Fermer</button>
         </div>
     </div>
