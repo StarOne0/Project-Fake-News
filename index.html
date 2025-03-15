@@ -129,8 +129,8 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             font-weight: 500;
-            transition: opacity 0.2s ease, box-shadow 0.3s ease;
             position: relative;
+            transition: color 0.3s ease-in-out;
         }
         
         .nav-links a::after {
@@ -141,7 +141,7 @@
             background: var(--accent-color);
             bottom: -5px;
             left: 0;
-            transition: width 0.3s ease;
+            transition: width 0.3s ease-in-out;
         }
         
         .nav-links a:hover::after {
@@ -149,8 +149,7 @@
         }
         
         .nav-links a:hover {
-            opacity: 0.8;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            color: var(--accent-color);
         }
         
         .container {
@@ -316,6 +315,16 @@
             background-color: #fff;
             border-top: 3px solid var(--accent-color);
             animation: cardFadeIn 1.5s ease-in-out;
+        }
+        
+        .secondary-articles .secondary-article:nth-child(1) {
+            animation-delay: 0s;
+        }
+        .secondary-articles .secondary-article:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .secondary-articles .secondary-article:nth-child(3) {
+            animation-delay: 0.4s;
         }
         
         @keyframes cardFadeIn {
@@ -512,17 +521,30 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .popup.visible {
+            display: block;
+            opacity: 1;
         }
         
         .popup-content {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0.8);
             background-color: white;
             padding: 20px;
             border-radius: 8px;
             text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .popup.visible .popup-content {
+            transform: translate(-50%, -50%) scale(1);
         }
         
         .payment-button {
@@ -555,6 +577,33 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            background-color: var(--accent-color);
         }
         
         @media (max-width: 992px) {
@@ -705,13 +754,15 @@
     
     <div class="popup" id="subscription-popup">
         <div class="popup-content">
-            <h3>Choisissez votre mode de paiement</h3>
+            <h3>Payer avec</h3>
             <a href="#" class="payment-button">
                 <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/paypal.png" alt="Payer avec PayPal" style="max-width: 150px;">
             </a>
             <button class="close-button">Fermer</button>
         </div>
     </div>
+    
+    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
     
     <script>
         let lastScrollTop = 0;
@@ -725,6 +776,14 @@
                 header.style.top = '0';
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            
+            // Afficher le bouton "Retour en haut"
+            const scrollToTopBtn = document.querySelector('.scroll-to-top');
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
         }, { passive: true });
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -734,19 +793,23 @@
 
             subscribeButton.addEventListener('click', function(event) {
                 event.preventDefault();
-                popup.style.display = 'block';
+                popup.classList.add('visible');
             });
 
             closeButton.addEventListener('click', function() {
-                popup.style.display = 'none';
+                popup.classList.remove('visible');
             });
 
             popup.addEventListener('click', function(event) {
                 if (event.target === popup) {
-                    popup.style.display = 'none';
+                    popup.classList.remove('visible');
                 }
             });
         });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
