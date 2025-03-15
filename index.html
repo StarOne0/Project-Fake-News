@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -27,32 +28,20 @@
             background: linear-gradient(135deg, var(--bg-color), #2a2a2a, var(--bg-color));
         }
 
-        body.high-contrast {
-            --primary-color: #000;
-            --accent-color: #fff;
-            --text-color: #fff;
-            --bg-color: #000;
-            background: none;
-        }
-
-        .category-international { --primary-color: #1e90ff; }
-        .category-economie { --primary-color: #2ecc71; }
-        .category-environnement { --primary-color: #27ae60; }
-        .category-technologie { --primary-color: #8e44ad; }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
         
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Montserrat:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap');
         
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Quicksand', sans-serif;
             line-height: 1.6;
             background: linear-gradient(135deg, var(--bg-color), #e6f0f5, var(--bg-color));
             background-size: 200% 200%;
+            -webkit-animation: backgroundGradient 15s ease infinite;
             animation: backgroundGradient 15s ease infinite;
             color: var(--text-color);
             position: relative;
@@ -84,6 +73,7 @@
             filter: blur(50px);
             opacity: 0.5;
             z-index: -1;
+            -webkit-animation: rainbowMove 20s infinite ease-in-out;
             animation: rainbowMove 20s infinite ease-in-out;
         }
 
@@ -111,7 +101,6 @@
         
         h1, h2, h3, .logo {
             font-family: 'Playfair Display', serif;
-            font-weight: 900;
         }
         
         header {
@@ -158,6 +147,7 @@
         
         .logo {
             font-size: 1.75rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: flex;
@@ -178,28 +168,10 @@
             50% { transform: translateY(-5px); }
         }
         
-        .hamburger {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-        }
-        
         .nav-links {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: var(--primary-color);
-            flex-direction: column;
-            padding: 1rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .nav-links.open {
             display: flex;
+            gap: 20px;
+            margin-right: 20px;
         }
         
         .nav-links a {
@@ -208,7 +180,6 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             font-weight: 500;
-            padding: 0.5rem 0;
             position: relative;
             transition: color 0.3s ease-in-out, text-shadow 0.3s ease;
         }
@@ -233,37 +204,66 @@
             text-shadow: 0 0 5px rgba(243, 156, 18, 0.5);
         }
         
-        .sidebar {
-            position: fixed;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 1000;
-        }
-        
-        .sidebar-item {
-            background: var(--primary-color);
-            color: white;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            text-decoration: none;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-        
-        .sidebar-item:hover {
-            transform: scale(1.1);
-            background: var(--accent-color);
-        }
-        
         .header-actions {
-            display: none;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .subscribe-top, .login-top {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .subscribe-top {
+            background-color: var(--accent-color);
+        }
+        
+        .subscribe-top:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .login-top {
+            border: 1px solid white;
+        }
+        
+        .login-top:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .notification-icon {
+            font-size: 1.2rem;
+            color: white;
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(15deg);
         }
         
         .container {
@@ -314,9 +314,10 @@
         }
         
         .main-article h1 {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
             line-height: 1.2;
+            font-weight: 700;
         }
         
         .title-animation {
@@ -324,8 +325,14 @@
         }
         
         @keyframes titleFadeIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .main-article .subtitle {
@@ -370,7 +377,7 @@
         
         .main-article-text p:first-of-type {
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 500;
         }
         
         .category {
@@ -404,15 +411,17 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: transform 0.3s ease;
+            animation: pulse 2s infinite;
             box-shadow: 0 3px 10px rgba(249, 212, 35, 0.4);
             transform: rotate(-5deg);
             position: relative;
             top: -5px;
         }
         
-        .exclusive-badge:hover {
-            transform: scale(1.05) rotate(-5deg);
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(249, 212, 35, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(249, 212, 35, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(249, 212, 35, 0); }
         }
         
         .secondary-articles {
@@ -619,7 +628,7 @@
             z-index: 1;
         }
         
-        .subscribe-button, .subscribe-top {
+        .subscribe-button {
             display: inline-block;
             background-color: var(--accent-color);
             color: white;
@@ -630,13 +639,20 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
             position: relative;
             z-index: 1;
+            animation: buttonPulse 3s infinite;
         }
         
-        body.dark-mode .subscribe-button, body.dark-mode .subscribe-top {
+        body.dark-mode .subscribe-button {
             background-color: #e67e22;
         }
         
-        .subscribe-button:hover, .subscribe-top:hover {
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .subscribe-button:hover {
             background-color: #e67e22;
             transform: scale(1.1);
         }
@@ -872,35 +888,6 @@
             background-color: var(--accent-color);
         }
         
-        .loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .loader-duck {
-            font-size: 3rem;
-            animation: waddle 1s infinite;
-        }
-        
-        @keyframes waddle {
-            0%, 100% { transform: translateX(-10px) rotate(-10deg); }
-            50% { transform: translateX(10px) rotate(10deg); }
-        }
-        
         @media (max-width: 992px) {
             .secondary-articles {
                 grid-template-columns: repeat(2, 1fr);
@@ -911,29 +898,58 @@
             .rainbow {
                 display: none;
             }
+
             .header-content {
-                flex-direction: row;
-                justify-content: space-between;
+                flex-direction: column;
+                gap: 10px;
             }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-right: 0;
+                gap: 15px;
+            }
+
+            .header-actions {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .subscribe-top, .login-top {
+                font-size: 0.8rem;
+                padding: 3px 8px;
+            }
+
+            .notification-icon, .theme-toggle {
+                font-size: 1rem;
+            }
+
             .main-article-content {
                 flex-direction: column;
             }
+            
             .main-article-content img {
                 width: 100%;
                 margin-bottom: 1.5rem;
             }
+            
             .main-article h1 {
                 font-size: 2rem;
             }
+            
             .secondary-articles {
                 grid-template-columns: 1fr;
             }
+            
             .secondary-article img {
                 height: 200px;
             }
+            
             .footer-content {
                 flex-direction: column;
             }
+            
             .footer-section {
                 margin-bottom: 2rem;
             }
@@ -941,35 +957,30 @@
     </style>
 </head>
 <body>
-    <div class="loader"><span class="loader-duck">🦆</span></div>
     <div class="rainbow"></div>
     
     <header>
         <div class="header-content">
             <div class="logo">Le Canard Déchaîné</div>
-            <button class="hamburger" aria-label="Ouvrir le menu">☰</button>
-            <nav class="nav-links">
+            <div class="nav-links">
                 <a href="#">Politique</a>
                 <a href="#">International</a>
                 <a href="#">Économie</a>
                 <a href="#">Culture</a>
                 <a href="#">Opinions</a>
-            </nav>
+            </div>
+            <div class="header-actions">
+                <a href="#" class="subscribe-top">S'abonner</a>
+                <a href="#" class="login-top">Se connecter</a>
+                <span class="notification-icon">🔔</span>
+                <button class="theme-toggle" aria-label="Basculer entre mode sombre et clair">🌙</button>
+            </div>
             <div class="scroll-progress"></div>
         </div>
     </header>
     
-    <div class="sidebar">
-        <button class="sidebar-item search-toggle" title="Rechercher">🔍</button>
-        <a href="#" class="sidebar-item subscribe-top" title="S'abonner">✉️</a>
-        <a href="#" class="sidebar-item login-top" title="Se connecter">👤</a>
-        <span class="sidebar-item notification-icon" title="Notifications">🔔</span>
-        <button class="sidebar-item theme-toggle" aria-label="Basculer entre mode sombre et clair" title="Mode sombre/clair">🌙</button>
-        <button class="sidebar-item contrast-toggle" title="Contraste élevé">◑</button>
-    </div>
-    
     <div class="container">
-        <div class="date" id="dynamic-date">Samedi 15 mars 2025</div>
+        <div class="date" id="dynamic-date">Vendredi 14 mars 2025</div>
         
         <article class="main-article">
             <div class="category">International</div>
@@ -1110,6 +1121,7 @@
             if (!ticking) {
                 window.requestAnimationFrame(function() {
                     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
                     if (scrollTop > lastScrollTop && scrollTop > 100) {
                         header.classList.add('hidden');
                     } else {
@@ -1117,6 +1129,7 @@
                     }
                     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 
+                    // Indicateur de progression
                     const winScroll = document.documentElement.scrollTop;
                     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                     const scrolled = (winScroll / height) * 100;
@@ -1124,6 +1137,7 @@
                     progressBar.style.transform = `translateX(${-(100 - scrolled)}%)`;
                     progressBar.classList.add('active');
 
+                    // Bouton "Retour en haut"
                     const scrollToTopBtn = document.querySelector('.scroll-to-top');
                     if (window.pageYOffset > 300) {
                         scrollToTopBtn.classList.add('visible');
@@ -1134,14 +1148,10 @@
                     ticking = false;
                 });
                 ticking = true;
-iont            }
+            }
         }, { passive: true });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.querySelector('.hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
-
             const subscribeButtons = document.querySelectorAll('.subscribe-button, .subscribe-top');
             const subscriptionPopup = document.getElementById('subscription-popup');
             const subscriptionCloseButton = subscriptionPopup.querySelector('.close-button');
@@ -1203,17 +1213,19 @@ iont            }
                 cookiePopup.classList.remove('visible');
             }
 
+            // Date et heure dynamiques
             function updateDateTime() {
                 const dateElement = document.getElementById('dynamic-date');
                 const now = new Date();
                 const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                dateElement.textContent = `${now.toLocaleDateString('fr-FR', dateOptions)}`;
+                const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                dateElement.textContent = `Mise à jour : ${now.toLocaleDateString('fr-FR', dateOptions)} à ${now.toLocaleTimeString('fr-FR', timeOptions)}`;
             }
             setInterval(updateDateTime, 1000);
             updateDateTime();
 
+            // Gestion du mode sombre/clair
             const themeToggle = document.querySelector('.theme-toggle');
-            const contrastToggle = document.querySelector('.contrast-toggle');
             const body = document.body;
 
             if (localStorage.getItem('theme') === 'dark') {
@@ -1231,19 +1243,6 @@ iont            }
                     localStorage.setItem('theme', 'light');
                 }
             });
-
-            contrastToggle.addEventListener('click', () => body.classList.toggle('high-contrast'));
-
-            const category = document.querySelector('.category').textContent.toLowerCase();
-            if (category.includes('international')) body.classList.add('category-international');
-            else if (category.includes('économie')) body.classList.add('category-economie');
-            else if (category.includes('environnement')) body.classList.add('category-environnement');
-            else if (category.includes('technologie')) body.classList.add('category-technologie');
-        });
-
-        window.addEventListener('load', () => {
-            const loader = document.querySelector('.loader');
-            setTimeout(() => loader.classList.add('hidden'), 500);
         });
 
         function scrollToTop() {
