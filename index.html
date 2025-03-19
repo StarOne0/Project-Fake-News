@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -982,7 +981,7 @@
     <div class="container">
         <div class="date" id="dynamic-date">Vendredi 14 mars 2025</div>
         
-        <article class="main-article">
+        <article class="main-article" id="main-article">
             <div class="category">International</div>
             <h1 class="title-animation">Un général russe fait son coming out <span class="exclusive-badge">Interview Exclusive</span></h1>
             <div class="subtitle">Dans un pays où l'homosexualité reste tabou, un haut gradé de l'armée russe se confie en exclusivité à notre journal</div>
@@ -1095,6 +1094,16 @@
                 </div>
                 <button type="submit" class="submit-button">Connexion</button>
             </form>
+            <button class="close-button">Fermer</button>
+        </div>
+    </div>
+    
+    <!-- Nouveau pop-up d'actualisation -->
+    <div class="popup" id="refresh-popup">
+        <div class="popup-content">
+            <h3>Nouvel article disponible</h3>
+            <p>Après la publication de l'article sur le général russe, des milliers de manifestants d'extrême droite manifestent en France. Cliquez sur "Actualiser" pour voir le nouvel article.</p>
+            <button id="refresh-button" class="submit-button">Actualiser</button>
             <button class="close-button">Fermer</button>
         </div>
     </div>
@@ -1241,6 +1250,51 @@
                 } else {
                     themeToggle.textContent = '🌙';
                     localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Gestion du pop-up d'actualisation
+            const refreshPopup = document.getElementById('refresh-popup');
+            const refreshButton = document.getElementById('refresh-button');
+            const refreshCloseButton = refreshPopup.querySelector('.close-button');
+            const mainArticle = document.getElementById('main-article');
+
+            // Afficher le pop-up après 1 minute
+            setTimeout(function() {
+                refreshPopup.classList.add('visible');
+            }, 60000); // 60000 ms = 1 minute
+
+            // Action du bouton "Actualiser"
+            refreshButton.addEventListener('click', function() {
+                mainArticle.innerHTML = `
+                    <div class="category">Politique</div>
+                    <h1 class="title-animation">Manifestations d'extrême droite en France après la révélation du général russe</h1>
+                    <div class="subtitle">Des milliers de manifestants d'extrême droite envahissent les rues en réaction à l'interview exclusive</div>
+                    
+                    <div class="main-article-content">
+                        <img src="https://via.placeholder.com/600x400" alt="Manifestants d'extrême droite dans les rues de Paris">
+                        
+                        <div class="main-article-text">
+                            <p><strong>PARIS</strong> — Quelques heures après la publication de l'interview exclusive du général Mikhail Petrov, des milliers de manifestants d'extrême droite ont envahi les rues de plusieurs villes françaises pour protester contre ce qu'ils qualifient de "propagande progressiste".</p>
+                            <p>Les cortèges, organisés par des groupes nationalistes, ont scandé des slogans hostiles aux droits LGBT+ et dénoncé une "attaque contre les valeurs traditionnelles". "Nous ne laisserons pas cette idéologie s'imposer en France," a lancé un porte-parole lors d'une manifestation à Paris.</p>
+                            <p>Les autorités ont mobilisé un important dispositif policier pour éviter les heurts, mais des tensions ont été signalées dans plusieurs quartiers. Des échauffourées mineures ont éclaté entre manifestants et forces de l'ordre, sans faire de blessés graves pour l'instant.</p>
+                            <p>En parallèle, des militants pro-LGBT+ ont organisé des contre-manifestations pacifiques, appelant à la tolérance et dénonçant la montée de l'intolérance. "Ce n'est pas la haine qui doit l'emporter," a déclaré une organisatrice à Lyon.</p>
+                            <p>Les réactions politiques fusent : les partis de gauche condamnent fermement ces manifestations, tandis que certains leaders conservateurs appellent à un "retour au calme". Le gouvernement français suit la situation de près mais n'a pas encore pris position officiellement.</p>
+                            <p>Ce mouvement pourrait marquer le début d'une vague de polarisation en France, alors que les débats sur les droits individuels et l'identité nationale s'intensifient.</p>
+                        </div>
+                    </div>
+                `;
+                refreshPopup.classList.remove('visible');
+            });
+
+            // Fermer le pop-up sans actualiser
+            refreshCloseButton.addEventListener('click', function() {
+                refreshPopup.classList.remove('visible');
+            });
+
+            refreshPopup.addEventListener('click', function(event) {
+                if (event.target === refreshPopup) {
+                    refreshPopup.classList.remove('visible');
                 }
             });
         });
