@@ -265,6 +265,42 @@
             transform: rotate(15deg);
         }
         
+        /* Barre de recherche */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .search-bar input {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: width 0.3s ease;
+            width: 120px;
+        }
+        
+        .search-bar input:focus {
+            width: 200px;
+            border: 1px solid var(--accent-color);
+        }
+        
+        .search-bar button {
+            background: var(--accent-color);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .search-bar button:hover {
+            background: #e67e22;
+        }
+        
         .container {
             width: 90%;
             max-width: 1200px;
@@ -317,6 +353,11 @@
             margin-bottom: 0.5rem;
             line-height: 1.2;
             font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        
+        .main-article h1:hover {
+            color: var(--accent-color);
         }
         
         .title-animation {
@@ -324,14 +365,8 @@
         }
         
         @keyframes titleFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         
         .main-article .subtitle {
@@ -377,6 +412,19 @@
         .main-article-text p:first-of-type {
             font-size: 1.1rem;
             font-weight: 500;
+        }
+        
+        .share-button {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .share-button:hover {
+            color: var(--accent-color);
         }
         
         .category {
@@ -663,7 +711,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -682,9 +730,9 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0.8);
             background-color: white;
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
         
@@ -695,6 +743,81 @@
         body.dark-mode .popup-content {
             background-color: #2a2a2a;
             color: #ddd;
+        }
+        
+        /* Style amélioré pour le pop-up d'actualisation */
+        #refresh-popup .popup-content {
+            background: linear-gradient(135deg, #fff, #f0f0f0);
+            border: 2px solid var(--accent-color);
+            animation: zoomIn 0.5s ease;
+        }
+        
+        body.dark-mode #refresh-popup .popup-content {
+            background: linear-gradient(135deg, #333, #222);
+        }
+        
+        @keyframes zoomIn {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        #refresh-popup h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        body.dark-mode #refresh-popup h3 {
+            color: var(--accent-color);
+        }
+        
+        #refresh-popup p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        
+        #refresh-button, #refresh-popup .close-button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        #refresh-button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+        }
+        
+        #refresh-button:hover {
+            background: #e67e22;
+            transform: scale(1.05);
+        }
+        
+        #refresh-popup .close-button {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        body.dark-mode #refresh-popup .close-button {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        
+        #refresh-popup .close-button:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        body.dark-mode #refresh-popup .close-button:hover {
+            background: var(--accent-color);
         }
         
         .payment-button {
@@ -969,6 +1092,10 @@
                 <a href="#">Opinions</a>
             </div>
             <div class="header-actions">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher...">
+                    <button>🔍</button>
+                </div>
                 <a href="#" class="subscribe-top">S'abonner</a>
                 <a href="#" class="login-top">Se connecter</a>
                 <span class="notification-icon">🔔</span>
@@ -996,6 +1123,7 @@
                     <p>Avant cette révélation, le général a passé des années à cacher sa véritable identité, vivant dans l'ombre pour protéger sa carrière. "C'était un fardeau quotidien," admet-il. "Mais aujourd'hui, je veux inspirer d'autres à briser ces chaînes invisibles."</p>
                     <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
                     <p>Des militants pour les droits LGBT+ ont salué ce geste comme "extraordinairement courageux" mais s'inquiètent des conséquences possibles pour le général Petrov. Ils appellent à une mobilisation internationale pour soutenir sa cause.</p>
+                    <span class="share-button" onclick="shareArticle()">Partager 🖇️</span>
                     
                     <div class="subscription-box">
                         <h3>Abonnez-vous au Canard Déchaîné</h3>
@@ -1068,6 +1196,9 @@
                 </ul>
             </div>
         </div>
+        <div class="footer-content" style="text-align: center; margin-top: 1rem;">
+            <p>&copy; <span id="year"></span> Le Canard Déchaîné. Tous droits réservés.</p>
+        </div>
     </footer>
     
     <div class="popup" id="subscription-popup">
@@ -1098,12 +1229,12 @@
         </div>
     </div>
     
-    <!-- Nouveau pop-up d'actualisation -->
+    <!-- Pop-up d'actualisation amélioré -->
     <div class="popup" id="refresh-popup">
         <div class="popup-content">
-            <h3>Nouvel article disponible</h3>
-            <p>Après la publication de l'article sur le général russe, des milliers de manifestants d'extrême droite manifestent en France. Cliquez sur "Actualiser" pour voir le nouvel article.</p>
-            <button id="refresh-button" class="submit-button">Actualiser</button>
+            <h3>Dernière Minute</h3>
+            <p>Manifestations d'extrême droite en France suite à l'interview. Actualisez pour en savoir plus !</p>
+            <button id="refresh-button">Actualiser</button>
             <button class="close-button">Fermer</button>
         </div>
     </div>
@@ -1125,6 +1256,7 @@
         let lastScrollTop = 0;
         const header = document.querySelector('header');
         let ticking = false;
+        let hasRefreshed = false;
 
         window.addEventListener('scroll', function() {
             if (!ticking) {
@@ -1138,7 +1270,6 @@
                     }
                     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 
-                    // Indicateur de progression
                     const winScroll = document.documentElement.scrollTop;
                     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                     const scrolled = (winScroll / height) * 100;
@@ -1146,7 +1277,6 @@
                     progressBar.style.transform = `translateX(${-(100 - scrolled)}%)`;
                     progressBar.classList.add('active');
 
-                    // Bouton "Retour en haut"
                     const scrollToTopBtn = document.querySelector('.scroll-to-top');
                     if (window.pageYOffset > 300) {
                         scrollToTopBtn.classList.add('visible');
@@ -1222,7 +1352,6 @@
                 cookiePopup.classList.remove('visible');
             }
 
-            // Date et heure dynamiques
             function updateDateTime() {
                 const dateElement = document.getElementById('dynamic-date');
                 const now = new Date();
@@ -1233,7 +1362,6 @@
             setInterval(updateDateTime, 1000);
             updateDateTime();
 
-            // Gestion du mode sombre/clair
             const themeToggle = document.querySelector('.theme-toggle');
             const body = document.body;
 
@@ -1253,18 +1381,17 @@
                 }
             });
 
-            // Gestion du pop-up d'actualisation
             const refreshPopup = document.getElementById('refresh-popup');
             const refreshButton = document.getElementById('refresh-button');
             const refreshCloseButton = refreshPopup.querySelector('.close-button');
             const mainArticle = document.getElementById('main-article');
 
-            // Afficher le pop-up après 1 minute
-            setTimeout(function() {
-                refreshPopup.classList.add('visible');
-            }, 60000); // 60000 ms = 1 minute
+            if (!hasRefreshed) {
+                setTimeout(function() {
+                    refreshPopup.classList.add('visible');
+                }, 30000); // 30 secondes
+            }
 
-            // Action du bouton "Actualiser"
             refreshButton.addEventListener('click', function() {
                 mainArticle.innerHTML = `
                     <div class="category">Politique</div>
@@ -1272,7 +1399,8 @@
                     <div class="subtitle">Des milliers de manifestants d'extrême droite envahissent les rues en réaction à l'interview exclusive</div>
                     
                     <div class="main-article-content">
-                       <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Manifestant%20d'ultra%20droite.jpg" alt="Manifestants d'extrême droite dans les rues de Paris">
+                        <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Manifestant%20d'ultra%20droite.jpg" alt="Manifestants d'extrême droite dans les rues de Paris">
+                        
                         <div class="main-article-text">
                             <p><strong>PARIS</strong> — Quelques heures après la publication de l'interview exclusive du général Mikhail Petrov, des milliers de manifestants d'extrême droite ont envahi les rues de plusieurs villes françaises pour protester contre ce qu'ils qualifient de "propagande progressiste".</p>
                             <p>Les cortèges, organisés par des groupes nationalistes, ont scandé des slogans hostiles aux droits LGBT+ et dénoncé une "attaque contre les valeurs traditionnelles". "Nous ne laisserons pas cette idéologie s'imposer en France," a lancé un porte-parole lors d'une manifestation à Paris.</p>
@@ -1280,13 +1408,14 @@
                             <p>En parallèle, des militants pro-LGBT+ ont organisé des contre-manifestations pacifiques, appelant à la tolérance et dénonçant la montée de l'intolérance. "Ce n'est pas la haine qui doit l'emporter," a déclaré une organisatrice à Lyon.</p>
                             <p>Les réactions politiques fusent : les partis de gauche condamnent fermement ces manifestations, tandis que certains leaders conservateurs appellent à un "retour au calme". Le gouvernement français suit la situation de près mais n'a pas encore pris position officiellement.</p>
                             <p>Ce mouvement pourrait marquer le début d'une vague de polarisation en France, alors que les débats sur les droits individuels et l'identité nationale s'intensifient.</p>
+                            <span class="share-button" onclick="shareArticle()">Partager 🖇️</span>
                         </div>
                     </div>
                 `;
                 refreshPopup.classList.remove('visible');
+                hasRefreshed = true;
             });
 
-            // Fermer le pop-up sans actualiser
             refreshCloseButton.addEventListener('click', function() {
                 refreshPopup.classList.remove('visible');
             });
@@ -1296,10 +1425,16 @@
                     refreshPopup.classList.remove('visible');
                 }
             });
+
+            document.getElementById('year').textContent = new Date().getFullYear();
         });
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function shareArticle() {
+            alert('Article partagé ! (Simulation : lien copié dans le presse-papiers)');
         }
     </script>
 </body>
