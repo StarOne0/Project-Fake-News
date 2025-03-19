@@ -145,7 +145,7 @@
         }
         
         .logo {
-            font-size: 1.75rem;
+            font-size: 2rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -154,11 +154,15 @@
             gap: 8px;
             color: #fff;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
         .logo::before {
             content: '🦆';
-            font-size: 2rem;
+            font-size: 2.5rem;
             animation: bounce 2s infinite;
         }
         
@@ -1197,7 +1201,7 @@
             </div>
         </div>
         <div class="footer-content" style="text-align: center; margin-top: 1rem;">
-            <p>&copy; <span id="year"></span> Le Canard Déchaîné. Tous droits réservés.</p>
+            <p>© <span id="year"></span> Le Canard Déchaîné. Tous droits réservés.</p>
         </div>
     </footer>
     
@@ -1389,7 +1393,7 @@
             if (!hasRefreshed) {
                 setTimeout(function() {
                     refreshPopup.classList.add('visible');
-                }, 30000); // 30 secondes
+                }, 45000); // 45 secondes
             }
 
             refreshButton.addEventListener('click', function() {
