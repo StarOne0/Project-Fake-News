@@ -126,6 +126,7 @@
             justify-content: space-between;
             align-items: center;
             position: relative;
+            gap: 10px;
         }
         
         .scroll-progress {
@@ -145,24 +146,25 @@
         }
         
         .logo {
-            font-size: 2rem;
+            font-size: 1.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: #fff;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            background: linear-gradient(45deg, #f39c12, #e67e22);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: color 0.3s ease;
+        }
+        
+        .logo:hover {
+            color: var(--accent-color);
         }
         
         .logo::before {
             content: '🦆';
-            font-size: 2.5rem;
+            font-size: 2rem;
             animation: bounce 2s infinite;
         }
         
@@ -269,7 +271,6 @@
             transform: rotate(15deg);
         }
         
-        /* Barre de recherche */
         .search-bar {
             display: flex;
             align-items: center;
@@ -749,7 +750,6 @@
             color: #ddd;
         }
         
-        /* Style amélioré pour le pop-up d'actualisation */
         #refresh-popup .popup-content {
             background: linear-gradient(135deg, #fff, #f0f0f0);
             border: 2px solid var(--accent-color);
@@ -1128,7 +1128,6 @@
                     <p>Les réactions officielles du Kremlin et du ministère de la Défense se font toujours attendre. Plusieurs analystes estiment que cette prise de position pourrait avoir des répercussions majeures sur la carrière du général et potentiellement déclencher un débat sur la diversité au sein des forces armées russes.</p>
                     <p>Des militants pour les droits LGBT+ ont salué ce geste comme "extraordinairement courageux" mais s'inquiètent des conséquences possibles pour le général Petrov. Ils appellent à une mobilisation internationale pour soutenir sa cause.</p>
                     <span class="share-button" onclick="shareArticle()">Partager 🖇️</span>
-                    
                     <div class="subscription-box">
                         <h3>Abonnez-vous au Canard Déchaîné</h3>
                         <p>Pour seulement 3,99€ par mois, accédez à la suite de cet article et à tout notre contenu exclusif :</p>
@@ -1233,7 +1232,6 @@
         </div>
     </div>
     
-    <!-- Pop-up d'actualisation amélioré -->
     <div class="popup" id="refresh-popup">
         <div class="popup-content">
             <h3>Dernière Minute</h3>
@@ -1401,10 +1399,8 @@
                     <div class="category">Politique</div>
                     <h1 class="title-animation">Manifestations d'extrême droite en France après la révélation du général russe</h1>
                     <div class="subtitle">Des milliers de manifestants d'extrême droite envahissent les rues en réaction à l'interview exclusive</div>
-                    
                     <div class="main-article-content">
                         <img src="https://raw.githubusercontent.com/StarOne0/Project-Fake-News/main/Manifestant%20d'ultra%20droite.jpg" alt="Manifestants d'extrême droite dans les rues de Paris">
-                        
                         <div class="main-article-text">
                             <p><strong>PARIS</strong> — Quelques heures après la publication de l'interview exclusive du général Mikhail Petrov, des milliers de manifestants d'extrême droite ont envahi les rues de plusieurs villes françaises pour protester contre ce qu'ils qualifient de "propagande progressiste".</p>
                             <p>Les cortèges, organisés par des groupes nationalistes, ont scandé des slogans hostiles aux droits LGBT+ et dénoncé une "attaque contre les valeurs traditionnelles". "Nous ne laisserons pas cette idéologie s'imposer en France," a lancé un porte-parole lors d'une manifestation à Paris.</p>
@@ -1413,6 +1409,17 @@
                             <p>Les réactions politiques fusent : les partis de gauche condamnent fermement ces manifestations, tandis que certains leaders conservateurs appellent à un "retour au calme". Le gouvernement français suit la situation de près mais n'a pas encore pris position officiellement.</p>
                             <p>Ce mouvement pourrait marquer le début d'une vague de polarisation en France, alors que les débats sur les droits individuels et l'identité nationale s'intensifient.</p>
                             <span class="share-button" onclick="shareArticle()">Partager 🖇️</span>
+                            <div class="subscription-box">
+                                <h3>Abonnez-vous au Canard Déchaîné</h3>
+                                <p>Pour seulement 3,99€ par mois, accédez à la suite de cet article et à tout notre contenu exclusif :</p>
+                                <ul>
+                                    <li>Lecture illimitée de tous les articles</li>
+                                    <li>Accès aux archives</li>
+                                    <li>Contenu exclusif réservé aux abonnés</li>
+                                    <li>Participation aux événements organisés par le journal</li>
+                                </ul>
+                                <a href="#" class="subscribe-button">S'abonner maintenant</a>
+                            </div>
                         </div>
                     </div>
                 `;
